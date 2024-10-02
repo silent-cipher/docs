@@ -1,0 +1,58 @@
+---
+title: "Errors"
+description: "Troubleshoot problems with comprehensive breakdown of all error codes"
+icon: "hexagon-exclamation"
+---
+
+CCTP Explorer API returns machine readable error codes, human readable error messages and a link to the docs for more information.
+
+Here is how an error response looks like:
+
+```json
+{
+  "status": 400,
+  "body": {
+    "errors": ["Invalid startDate. Must be a unixtimestamp."]
+  }
+}
+```
+
+## Error Codes
+
+Here is a list of all error codes CCTP Explorer API returns:
+
+### `bad_request`
+
+- **Status:** 400 (Note: The HTTP response status will be `200`, but the JSON response will contain the actual status code)
+- **Problem:** The request is malformed, either missing required fields, using wrong datatypes, or being syntactically incorrect.
+- **Solution:** Check the request and make sure it is properly formatted. You need to check the status field in the JSON response, not the HTTP response status.
+
+### `unauthorized`
+
+- **Status:** 401
+- **Problem:** The request has not been applied because it lacks valid authentication credentials for the target resource.
+- **Solution:** Make sure you are using the correct API key or access token.
+
+### `forbidden`
+
+- **Status:** 403
+- **Problem:** The server understood the request, but is refusing to fulfill it because the client lacks proper permission.
+- **Solution:** Make sure you have the necessary permissions to access the resource.
+
+### `not_found`
+
+- **Status:** 404
+- **Problem:** The requested resource was not found.
+- **Solution:** Check the request and make sure the resource exists.
+
+### `internal_server_error`
+
+- **Status:** 500
+- **Problem:** The server encountered an unexpected condition that prevented it from fulfilling the request.
+- **Solution:** Try again later. If the problem persists, contact support.
+
+### `timeout`
+
+- **Status:** 504
+- **Problem:** The server did not respond in time.
+- **Solution:** Try again later. If the problem persists, contact support.

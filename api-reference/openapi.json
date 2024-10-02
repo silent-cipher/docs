@@ -1,0 +1,790 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "OpenAPI Eigen Explorer",
+    "description": "Api reference for the Eigen Explorer",
+    "license": {
+      "name": "MIT"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.blockflow.network/rest/<API_KEY>"
+    }
+  ],
+  "security": [
+    {
+      "ApiKeyAuth": []
+    }
+  ],
+  "paths": {
+    "/deposits": {
+      "get": {
+        "operationId": "getAllDeposits",
+        "summary": "Retrieve all deposits",
+        "description": "Returns all deposit data, including the transaction hash, token address, and other relevant information.",
+        "tags": ["Deposits"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "page": {
+                    "type": "string",
+                    "default": "1",
+                    "description": "The number of records to skip for pagination",
+                    "example": 1
+                  },
+                  "limit": {
+                    "type": "string",
+                    "default": "12",
+                    "description": "The number of records to return for pagination",
+                    "example": 12
+                  },
+                  "stakerAddress": {
+                    "type": "string",
+                    "pattern": "^0x[a-fA-F0-9]{40}$",
+                    "description": "The address of the staker",
+                    "example": "0x74ede5f75247fbdb9266d2b3a7be63b3db7611dd"
+                  },
+                  "tokenAddress": {
+                    "type": "string",
+                    "pattern": "^0x[a-fA-F0-9]{40}$",
+                    "description": "The address of the token deposited",
+                    "example": "0xe95a203b1a91a908f9b9ce46459d101078c2c3cb"
+                  },
+                  "strategyAddress": {
+                    "type": "string",
+                    "pattern": "^0x[a-fA-F0-9]{40}$",
+                    "description": "The contract address of the restaking strategy",
+                    "example": "0x0fe4f44bee93503346a3ac9ee5a26b130a5796d6"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The list of deposits.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "transactionHash": {
+                            "type": "string",
+                            "description": "The hash of the transaction",
+                            "example": "0x9d0a355df5a937516dfaed6721b0b461a16b8fad005f66d7dbf56b8a39136297"
+                          },
+                          "stakerAddress": {
+                            "type": "string",
+                            "description": "The address of the staker",
+                            "example": "0x74ede5f75247fbdb9266d2b3a7be63b3db7611dd"
+                          },
+                          "tokenAddress": {
+                            "type": "string",
+                            "description": "The address of the token",
+                            "example": "0xe95a203b1a91a908f9b9ce46459d101078c2c3cb"
+                          },
+                          "strategyAddress": {
+                            "type": "string",
+                            "description": "The contract address of the restaking strategy",
+                            "example": "0x0fe4f44bee93503346a3ac9ee5a26b130a5796d6"
+                          },
+                          "shares": {
+                            "type": "string",
+                            "description": "The amount of shares held in the strategy",
+                            "example": "40888428658906049"
+                          },
+                          "createdAtBlock": {
+                            "type": "number",
+                            "description": "The block number when the withdrawal was recorded by EigenExplorer",
+                            "example": 19912470
+                          },
+                          "createdAt": {
+                            "type": "string",
+                            "description": "The time stamp when the withdrawal was recorded by EigenExplorer",
+                            "example": "2024-07-07T23:53:35.000Z"
+                          }
+                        },
+                        "required": [
+                          "transactionHash",
+                          "stakerAddress",
+                          "tokenAddress",
+                          "strategyAddress",
+                          "shares",
+                          "createdAtBlock",
+                          "createdAt"
+                        ]
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "total": {
+                          "type": "number",
+                          "description": "Total number of records in the database",
+                          "example": 30
+                        },
+                        "skip": {
+                          "type": "number",
+                          "description": "The number of skiped records for this query",
+                          "example": 0
+                        },
+                        "take": {
+                          "type": "number",
+                          "description": "The number of records returned for this query",
+                          "example": 12
+                        }
+                      },
+                      "required": ["total", "skip", "take"]
+                    }
+                  },
+                  "required": ["data", "meta"]
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/withdrawals": {
+      "get": {
+        "operationId": "getAllWithdrawals",
+        "summary": "Retrieve all withdrawals",
+        "description": "Returns all withdrawal data, including the withdrawal root, nonce, withdrawal status, and other relevant information.",
+        "tags": ["Withdrawals"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "page": {
+                    "type": "number",
+                    "default": 1,
+                    "description": "The number of records to skip for pagination",
+                    "example": 1
+                  },
+                  "take": {
+                    "type": "number",
+                    "default": 12,
+                    "description": "The number of records to return for pagination",
+                    "example": 12
+                  },
+                  "stakerAddress": {
+                    "type": "string",
+                    "pattern": "^0x[a-fA-F0-9]{40}$",
+                    "description": "The address of the staker",
+                    "example": "0x74ede5f75247fbdb9266d2b3a7be63b3db7611dd"
+                  },
+                  "delegatedTo": {
+                    "type": "string",
+                    "pattern": "^0x[a-fA-F0-9]{40}$",
+                    "description": "The address of the operator to which the stake is delegated",
+                    "example": "0x5accc90436492f24e6af278569691e2c942a676d"
+                  },
+                  "strategyAddress": {
+                    "type": "string",
+                    "pattern": "^0x[a-fA-F0-9]{40}$",
+                    "description": "The contract address of the restaking strategy",
+                    "example": "0x0fe4f44bee93503346a3ac9ee5a26b130a5796d6"
+                  },
+                  "status": {
+                    "type": "string",
+                    "description": "The status of the withdrawal",
+                    "enum": ["pending", "completed", "failed"],
+                    "example": "completed"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The list of withdrawals.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "withdrawalRoot": {
+                            "type": "string",
+                            "description": "The root hash of the withdrawal",
+                            "example": "0x9e6728ef0a8ad6009107a886047aae35bc5ed7deaa68580b0d1f8f67e3e5ed31"
+                          },
+                          "nonce": {
+                            "type": "number",
+                            "description": "The nonce of the withdrawal",
+                            "example": 0
+                          },
+                          "stakerAddress": {
+                            "type": "string",
+                            "description": "The address of the staker",
+                            "example": "0x74ede5f75247fbdb9266d2b3a7be63b3db7611dd"
+                          },
+                          "delegatedTo": {
+                            "type": "string",
+                            "description": "The operator address to which staking is delegated",
+                            "example": "0x0000000000000000000000000000000000000000"
+                          },
+                          "withdrawerAddress": {
+                            "type": "string",
+                            "description": "The address of the withdrawer",
+                            "example": "0x74ede5f75247fbdb9266d2b3a7be63b3db7611dd"
+                          },
+                          "shares": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "strategyAddress": {
+                                  "type": "string",
+                                  "pattern": "^0x[a-fA-F0-9]{40}$",
+                                  "description": "The contract address of the restaking strategy",
+                                  "example": "0xbeac0eeeeeeeeeeeeeeeeeeeeeeeeeeeeeebeac0"
+                                },
+                                "shares": {
+                                  "type": "string",
+                                  "description": "The amount of shares held in the strategy",
+                                  "example": "1277920000000000000000000"
+                                }
+                              },
+                              "required": ["strategyAddress", "shares"]
+                            },
+                            "description": "The list of strategy shares",
+                            "example": [
+                              {
+                                "strategyAddress": "0x93c4b944d05dfe6df7645a86cd2206016c51564d",
+                                "shares": "1000288824523326631"
+                              }
+                            ]
+                          },
+                          "createdAtBlock": {
+                            "type": "number",
+                            "description": "The block number when the withdrawal was recorded by EigenExplorer",
+                            "example": 19912470
+                          },
+                          "createdAt": {
+                            "type": "string",
+                            "description": "The time stamp when the withdrawal was recorded by EigenExplorer",
+                            "example": "2024-07-07T23:53:35.000Z"
+                          },
+                          "updatedAtBlock": {
+                            "type": "number",
+                            "description": "The block number when the withdrawal was last updated",
+                            "example": 19912470
+                          },
+                          "updatedAt": {
+                            "type": "string",
+                            "description": "The time stamp when the withdrawal was last updated",
+                            "example": "2024-07-07T23:53:35.000Z"
+                          },
+                          "isCompleted": {
+                            "type": "boolean",
+                            "description": "Indicates if the withdrawal is completed",
+                            "example": false
+                          }
+                        },
+                        "required": [
+                          "withdrawalRoot",
+                          "nonce",
+                          "stakerAddress",
+                          "delegatedTo",
+                          "withdrawerAddress",
+                          "shares",
+                          "createdAtBlock",
+                          "createdAt",
+                          "updatedAtBlock",
+                          "updatedAt",
+                          "isCompleted"
+                        ]
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "total": {
+                          "type": "number",
+                          "description": "Total number of records in the database",
+                          "example": 30
+                        },
+                        "skip": {
+                          "type": "number",
+                          "description": "The number of skiped records for this query",
+                          "example": 0
+                        },
+                        "take": {
+                          "type": "number",
+                          "description": "The number of records returned for this query",
+                          "example": 12
+                        }
+                      },
+                      "required": ["total", "skip", "take"]
+                    }
+                  },
+                  "required": ["data", "meta"]
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/withdrawal-by-root": {
+      "get": {
+        "operationId": "getWithdrawalByWithdrawalRoot",
+        "summary": "Retrieve withdrawal by withdrawal root",
+        "description": "Returns the withdrawal data by withdrawal root.",
+        "tags": ["Withdrawals"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "withdrawalRoot": {
+                    "type": "string",
+                    "description": "The root hash of the withdrawal",
+                    "example": "0x9e6728ef0a8ad6009107a886047aae35bc5ed7deaa68580b0d1f8f67e3e5ed31"
+                  }
+                },
+                "required": ["withdrawalRoot"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The requested withdrawal record.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "withdrawalRoot": {
+                      "type": "string",
+                      "description": "The root hash of the withdrawal",
+                      "example": "0x9e6728ef0a8ad6009107a886047aae35bc5ed7deaa68580b0d1f8f67e3e5ed31"
+                    },
+                    "nonce": {
+                      "type": "number",
+                      "description": "The nonce of the withdrawal",
+                      "example": 0
+                    },
+                    "stakerAddress": {
+                      "type": "string",
+                      "description": "The address of the staker",
+                      "example": "0x74ede5f75247fbdb9266d2b3a7be63b3db7611dd"
+                    },
+                    "delegatedTo": {
+                      "type": "string",
+                      "description": "The operator address to which staking is delegated",
+                      "example": "0x0000000000000000000000000000000000000000"
+                    },
+                    "withdrawerAddress": {
+                      "type": "string",
+                      "description": "The address of the withdrawer",
+                      "example": "0x74ede5f75247fbdb9266d2b3a7be63b3db7611dd"
+                    },
+                    "shares": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "strategyAddress": {
+                            "type": "string",
+                            "pattern": "^0x[a-fA-F0-9]{40}$",
+                            "description": "The contract address of the restaking strategy",
+                            "example": "0xbeac0eeeeeeeeeeeeeeeeeeeeeeeeeeeeeebeac0"
+                          },
+                          "shares": {
+                            "type": "string",
+                            "description": "The amount of shares held in the strategy",
+                            "example": "1277920000000000000000000"
+                          }
+                        },
+                        "required": ["strategyAddress", "shares"]
+                      },
+                      "description": "The list of strategy shares",
+                      "example": [
+                        {
+                          "strategyAddress": "0x93c4b944d05dfe6df7645a86cd2206016c51564d",
+                          "shares": "1000288824523326631"
+                        }
+                      ]
+                    },
+                    "createdAtBlock": {
+                      "type": "number",
+                      "description": "The block number when the withdrawal was recorded by EigenExplorer",
+                      "example": 19912470
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "description": "The time stamp when the withdrawal was recorded by EigenExplorer",
+                      "example": "2024-07-07T23:53:35.000Z"
+                    },
+                    "updatedAtBlock": {
+                      "type": "number",
+                      "description": "The block number when the withdrawal was last updated",
+                      "example": 19912470
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "description": "The time stamp when the withdrawal was last updated",
+                      "example": "2024-07-07T23:53:35.000Z"
+                    },
+                    "isCompleted": {
+                      "type": "boolean",
+                      "description": "Indicates if the withdrawal is completed",
+                      "example": false
+                    }
+                  },
+                  "required": [
+                    "withdrawalRoot",
+                    "nonce",
+                    "stakerAddress",
+                    "delegatedTo",
+                    "withdrawerAddress",
+                    "shares",
+                    "createdAtBlock",
+                    "createdAt",
+                    "updatedAtBlock",
+                    "updatedAt",
+                    "isCompleted"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "responses": {
+      "400": {
+        "description": "The server cannot or will not process the request due to something that is perceived to be a client error (e.g., malformed request syntax, invalid request message framing, or deceptive request routing).",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": ["bad_request"],
+                      "description": "A short code indicating the error code returned.",
+                      "example": "bad_request"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "A human readable explanation of what went wrong.",
+                      "example": "The requested resource was not found."
+                    },
+                    "doc_url": {
+                      "type": "string",
+                      "description": "A link to our documentation with more details about this error code",
+                      "example": "https://docs.eigenexplorer.com/api-reference/errors#bad_request"
+                    }
+                  },
+                  "required": ["code", "message"]
+                }
+              },
+              "required": ["error"]
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "Although the HTTP standard specifies \"unauthorized\", semantically this response means \"unauthenticated\". That is, the client must authenticate itself to get the requested response.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": ["unauthorized"],
+                      "description": "A short code indicating the error code returned.",
+                      "example": "unauthorized"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "A human readable explanation of what went wrong.",
+                      "example": "The requested resource was not found."
+                    },
+                    "doc_url": {
+                      "type": "string",
+                      "description": "A link to our documentation with more details about this error code",
+                      "example": "https://docs.eigenexplorer.com/api-reference/errors#unauthorized"
+                    }
+                  },
+                  "required": ["code", "message"]
+                }
+              },
+              "required": ["error"]
+            }
+          }
+        }
+      },
+      "403": {
+        "description": "The client does not have access rights to the content; that is, it is unauthorized, so the server is refusing to give the requested resource. Unlike 401 Unauthorized, the client's identity is known to the server.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": ["forbidden"],
+                      "description": "A short code indicating the error code returned.",
+                      "example": "forbidden"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "A human readable explanation of what went wrong.",
+                      "example": "The requested resource was not found."
+                    },
+                    "doc_url": {
+                      "type": "string",
+                      "description": "A link to our documentation with more details about this error code",
+                      "example": "https://docs.eigenexplorer.com/api-reference/errors#forbidden"
+                    }
+                  },
+                  "required": ["code", "message"]
+                }
+              },
+              "required": ["error"]
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "The server cannot find the requested resource.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": ["not_found"],
+                      "description": "A short code indicating the error code returned.",
+                      "example": "not_found"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "A human readable explanation of what went wrong.",
+                      "example": "The requested resource was not found."
+                    },
+                    "doc_url": {
+                      "type": "string",
+                      "description": "A link to our documentation with more details about this error code",
+                      "example": "https://docs.eigenexplorer.com/api-reference/errors#not_found"
+                    }
+                  },
+                  "required": ["code", "message"]
+                }
+              },
+              "required": ["error"]
+            }
+          }
+        }
+      },
+      "422": {
+        "description": "The request was well-formed but was unable to be followed due to semantic errors.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": ["unprocessable_entity"],
+                      "description": "A short code indicating the error code returned.",
+                      "example": "unprocessable_entity"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "A human readable explanation of what went wrong.",
+                      "example": "The requested resource was not found."
+                    },
+                    "doc_url": {
+                      "type": "string",
+                      "description": "A link to our documentation with more details about this error code",
+                      "example": "https://docs.eigenexplorer.com/api-reference/errors#unprocessable_entity"
+                    }
+                  },
+                  "required": ["code", "message"]
+                }
+              },
+              "required": ["error"]
+            }
+          }
+        }
+      },
+      "429": {
+        "description": "The user has sent too many requests in a given amount of time (\"rate limiting\")",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": ["rate_limit_exceeded"],
+                      "description": "A short code indicating the error code returned.",
+                      "example": "rate_limit_exceeded"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "A human readable explanation of what went wrong.",
+                      "example": "The requested resource was not found."
+                    },
+                    "doc_url": {
+                      "type": "string",
+                      "description": "A link to our documentation with more details about this error code",
+                      "example": "https://docs.eigenexplorer.com/api-reference/errors#rate_limit_exceeded"
+                    }
+                  },
+                  "required": ["code", "message"]
+                }
+              },
+              "required": ["error"]
+            }
+          }
+        }
+      },
+      "500": {
+        "description": "The server has encountered a situation it does not know how to handle.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": ["internal_server_error"],
+                      "description": "A short code indicating the error code returned.",
+                      "example": "internal_server_error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "A human readable explanation of what went wrong.",
+                      "example": "The requested resource was not found."
+                    },
+                    "doc_url": {
+                      "type": "string",
+                      "description": "A link to our documentation with more details about this error code",
+                      "example": "https://docs.eigenexplorer.com/api-reference/errors#internal_server_error"
+                    }
+                  },
+                  "required": ["code", "message"]
+                }
+              },
+              "required": ["error"]
+            }
+          }
+        }
+      }
+    }
+  }
+}

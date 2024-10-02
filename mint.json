@@ -1,0 +1,64 @@
+{
+  "$schema": "https://mintlify.com/schema.json",
+  "name": "Eigen Explorer",
+  "logo": {
+    "dark": "/logo/blockflow-dark.svg",
+    "light": "/logo/blockflow-light.svg"
+  },
+  "favicon": "/favicon.svg",
+  "colors": {
+    "primary": "#0D9373",
+    "light": "#07C983",
+    "dark": "#0D9373",
+    "anchors": {
+      "from": "#0D9373",
+      "to": "#07C983"
+    }
+  },
+  "topbarLinks": [
+    {
+      "name": "Support",
+      "url": "mailto:support@blockflow.network"
+    },
+    {
+      "name": "Get API Key",
+      "url": "https://app.blockflow.network/"
+    }
+  ],
+  "topbarCtaButton": {
+    "name": "Explorer",
+    "url": "https://www.cctpscan.xyz/"
+  },
+  "tabs": [
+    {
+      "name": "API Reference",
+      "url": "api-reference"
+    }
+  ],
+  "navigation": [
+    {
+      "group": "API Documentation",
+      "pages": [
+        "api-reference/introduction",
+        "api-reference/prerequisites",
+        "api-reference/errors"
+      ]
+    },
+    {
+      "group": "Deposits",
+      "pages": ["api-reference/deposits/index"]
+    },
+    {
+      "group": "Withdrawals",
+      "pages": [
+        "api-reference/withdrawals/index",
+        "api-reference/withdrawals/withdrawal-by-root"
+      ]
+    }
+  ],
+  "footerSocials": {
+    "x": "https://x.com/blockflowLabs",
+    "github": "https://github.com/blockflowlabs",
+    "linkedin": "https://in.linkedin.com/company/blockflowlabs"
+  }
+}

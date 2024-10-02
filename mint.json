@@ -45,6 +45,25 @@
       ]
     },
     {
+      "group": "AVS",
+      "pages": [
+        "api-reference/avs/index",
+        "api-reference/avs/avs-by-address",
+        "api-reference/avs/all-avs-addresses",
+        "api-reference/avs/stakers-by-avs",
+        "api-reference/avs/operators-by-avs"
+      ]
+    },
+    {
+      "group": "Stakers",
+      "pages": [
+        "api-reference/stakers/index",
+        "api-reference/stakers/staker-by-address",
+        "api-reference/stakers/withdrawals-by-staker",
+        "api-reference/stakers/deposits-by-staker"
+      ]
+    },
+    {
       "group": "Operators",
       "pages": [
         "api-reference/operators/index",

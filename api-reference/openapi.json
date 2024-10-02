@@ -19,6 +19,1712 @@
     }
   ],
   "paths": {
+    "/stakers": {
+      "get": {
+        "operationId": "getAllStakers",
+        "summary": "Retrieve all stakers",
+        "description": "Returns all staker records. This endpoint supports pagination.",
+        "tags": ["Stakers"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "withTvl": {
+                    "type": "string",
+                    "enum": ["true", "false"],
+                    "default": "false",
+                    "description": "Toggle whether the route should calculate the TVL from shares",
+                    "example": "false"
+                  },
+                  "page": {
+                    "type": "number",
+                    "description": "The page number to retrieve",
+                    "example": 1,
+                    "default": 1
+                  },
+                  "limit": {
+                    "type": "number",
+                    "description": "The number of records per page",
+                    "example": 12,
+                    "default": 12
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The list of staker records.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "address": {
+                            "type": "string",
+                            "pattern": "^0x[a-fA-F0-9]{40}$",
+                            "description": "The contract address of the staker",
+                            "example": "0x0000006c21964af0d420af8992851a30fa13a68b"
+                          },
+                          "operatorAddress": {
+                            "type": "string",
+                            "pattern": "^0x[a-fA-F0-9]{40}$",
+                            "description": "The address of the operator",
+                            "example": "0x71c6f7ed8c2d4925d0baf16f6a85bb1736d412eb"
+                          },
+                          "createdAtBlock": {
+                            "type": "number",
+                            "description": "The block number at which the Staker made first delegation",
+                            "example": 19631203
+                          },
+                          "updatedAtBlock": {
+                            "type": "number",
+                            "description": "The block number at which the Staker made last delegation",
+                            "example": 19631203
+                          },
+                          "createdAt": {
+                            "type": "number",
+                            "description": "The time stamp at which the Staker made first delegation",
+                            "example": 1734634743
+                          },
+                          "updatedAt": {
+                            "type": "number",
+                            "description": "The time stamp at which the Staker made last delegation",
+                            "example": 1734634743
+                          },
+                          "shares": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "strategyAddress": {
+                                  "type": "string",
+                                  "pattern": "^0x[a-fA-F0-9]{40}$",
+                                  "description": "The contract address of the restaking strategy",
+                                  "example": "0x93c4b944d05dfe6df7645a86cd2206016c51564a"
+                                },
+                                "shares": {
+                                  "type": "string",
+                                  "description": "The amount of shares held in the strategy",
+                                  "example": "40888428658906049"
+                                }
+                              },
+                              "required": ["strategyAddress", "shares"]
+                            }
+                          },
+                          "tvl": {
+                            "type": "object",
+                            "properties": {
+                              "tvlBeaconChain": {
+                                "type": "number",
+                                "description": "The TVL of Beacon Chain restaking strategy in ETH",
+                                "example": 1000000
+                              },
+                              "tvlWETH": {
+                                "type": "number",
+                                "description": "The TVL of WETH restaking strategy in ETH",
+                                "example": 1000000
+                              },
+                              "tvlStrategies": {
+                                "type": "object",
+                                "additionalProperties": {
+                                  "type": "number",
+                                  "description": "The total value locked (TVL) in the strategy, denominated in the strategy's native token",
+                                  "example": 1000000
+                                },
+                                "description": "The TVL of each individual restaking strategy in its native token",
+                                "example": {
+                                  "Eigen": 1000000,
+                                  "cbETH": 2000000
+                                }
+                              }
+                            },
+                            "required": [
+                              "tvlBeaconChain",
+                              "tvlWETH",
+                              "tvlStrategies"
+                            ],
+                            "description": "The total value locked (TVL) in the AVS",
+                            "example": {
+                              "tvlBeaconChain": 1000000,
+                              "tvlWETH": 1000000,
+                              "tvlStrategies": {
+                                "Eigen": 1000000,
+                                "cbETH": 2000000
+                              }
+                            }
+                          }
+                        },
+                        "required": [
+                          "address",
+                          "operatorAddress",
+                          "createdAtBlock",
+                          "updatedAtBlock",
+                          "createdAt",
+                          "updatedAt",
+                          "shares"
+                        ]
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "total": {
+                          "type": "number",
+                          "description": "Total number of records in the database",
+                          "example": 30
+                        },
+                        "page": {
+                          "type": "number",
+                          "description": "The page number of the current query",
+                          "example": 1
+                        },
+                        "limit": {
+                          "type": "number",
+                          "description": "The number of records returned for this query",
+                          "example": 12
+                        }
+                      },
+                      "required": ["total", "page", "limit"]
+                    }
+                  },
+                  "required": ["data", "meta"]
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/staker-by-address": {
+      "get": {
+        "operationId": "getStakerByAddress",
+        "summary": "Retrieve a staker by address",
+        "description": "Returns a staker record by address.",
+        "tags": ["Stakers"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "address": {
+                    "type": "string",
+                    "pattern": "^0x[a-fA-F0-9]{40}$",
+                    "description": "The address of the staker",
+                    "example": "0x9791fdb4e9c0495efc5a1f3f9271ef226251eb34"
+                  },
+                  "withTvl": {
+                    "type": "string",
+                    "enum": ["true", "false"],
+                    "default": "false",
+                    "description": "Toggle whether the route should calculate the TVL from shares",
+                    "example": "false"
+                  }
+                },
+                "required": ["address"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The record of the requested operator.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "address": {
+                      "type": "string",
+                      "pattern": "^0x[a-fA-F0-9]{40}$",
+                      "description": "The contract address of the staker",
+                      "example": "0x0000006c21964af0d420af8992851a30fa13a68b"
+                    },
+                    "operatorAddress": {
+                      "type": "string",
+                      "pattern": "^0x[a-fA-F0-9]{40}$",
+                      "description": "The address of the operator",
+                      "example": "0x71c6f7ed8c2d4925d0baf16f6a85bb1736d412eb"
+                    },
+                    "createdAtBlock": {
+                      "type": "number",
+                      "description": "The block number at which the Staker made first delegation",
+                      "example": 19631203
+                    },
+                    "updatedAtBlock": {
+                      "type": "number",
+                      "description": "The block number at which the Staker made last delegation",
+                      "example": 19631203
+                    },
+                    "createdAt": {
+                      "type": "number",
+                      "description": "The time stamp at which the Staker made first delegation",
+                      "example": 1768348371
+                    },
+                    "updatedAt": {
+                      "type": "number",
+                      "description": "The time stamp at which the Staker made last delegation",
+                      "example": 1768348371
+                    },
+                    "shares": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "strategyAddress": {
+                            "type": "string",
+                            "pattern": "^0x[a-fA-F0-9]{40}$",
+                            "description": "The contract address of the restaking strategy",
+                            "example": "0x93c4b944d05dfe6df7645a86cd2206016c51564a"
+                          },
+                          "shares": {
+                            "type": "string",
+                            "description": "The amount of shares held in the strategy",
+                            "example": "40888428658906049"
+                          }
+                        },
+                        "required": ["strategyAddress", "shares"]
+                      }
+                    },
+                    "tvl": {
+                      "type": "object",
+                      "properties": {
+                        "tvlBeaconChain": {
+                          "type": "number",
+                          "description": "The TVL of Beacon Chain restaking strategy in ETH",
+                          "example": 1000000
+                        },
+                        "tvlWETH": {
+                          "type": "number",
+                          "description": "The TVL of WETH restaking strategy in ETH",
+                          "example": 1000000
+                        },
+                        "tvlStrategies": {
+                          "type": "object",
+                          "additionalProperties": {
+                            "type": "number",
+                            "description": "The total value locked (TVL) in the strategy, denominated in the strategy's native token",
+                            "example": 1000000
+                          },
+                          "description": "The TVL of each individual restaking strategy in its native token",
+                          "example": {
+                            "Eigen": 1000000,
+                            "cbETH": 2000000
+                          }
+                        }
+                      },
+                      "required": [
+                        "tvlBeaconChain",
+                        "tvlWETH",
+                        "tvlStrategies"
+                      ],
+                      "description": "The total value locked (TVL) in the AVS",
+                      "example": {
+                        "tvlBeaconChain": 1000000,
+                        "tvlWETH": 1000000,
+                        "tvlStrategies": {
+                          "Eigen": 1000000,
+                          "cbETH": 2000000
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "address",
+                    "operatorAddress",
+                    "createdAtBlock",
+                    "updatedAtBlock",
+                    "createdAt",
+                    "updatedAt",
+                    "shares"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/withdrawals-by-staker": {
+      "get": {
+        "operationId": "getStakerWithdrawals",
+        "summary": "Retrieve all withdrawals by staker address",
+        "description": "Returns all withdrawal data of the requested staker, including the withdrawal root, nonce, withdrawal status, and other relevant information.",
+        "tags": ["Stakers"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "address": {
+                    "type": "string",
+                    "pattern": "^0x[a-fA-F0-9]{40}$",
+                    "description": "The contract address of the staker",
+                    "example": "0x0000006c21964af0d420af8992851a30fa13a68b"
+                  },
+                  "status": {
+                    "type": "string",
+                    "description": "The status of the withdrawal",
+                    "example": "completed",
+                    "enum": ["queued", "completed"]
+                  },
+                  "page": {
+                    "type": "number",
+                    "description": "The page number to retrieve",
+                    "example": 1,
+                    "default": 1
+                  },
+                  "limit": {
+                    "type": "number",
+                    "description": "The number of records per page",
+                    "example": 12,
+                    "default": 12
+                  }
+                },
+                "required": ["address"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The list of withdrawals.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "withdrawalRoot": {
+                            "type": "string",
+                            "description": "The root hash of the withdrawal",
+                            "example": "0x9e6728ef0a8ad6009107a886047aae35bc5ed7deaa68580b0d1f8f67e3e5ed31"
+                          },
+                          "nonce": {
+                            "type": "number",
+                            "description": "The nonce of the withdrawal",
+                            "example": 0
+                          },
+                          "stakerAddress": {
+                            "type": "string",
+                            "description": "The address of the staker",
+                            "example": "0x74ede5f75247fbdb9266d2b3a7be63b3db7611dd"
+                          },
+                          "delegatedTo": {
+                            "type": "string",
+                            "description": "The operator address to which staking is delegated",
+                            "example": "0x0000000000000000000000000000000000000000"
+                          },
+                          "withdrawerAddress": {
+                            "type": "string",
+                            "description": "The address of the withdrawer",
+                            "example": "0x74ede5f75247fbdb9266d2b3a7be63b3db7611dd"
+                          },
+                          "shares": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "strategyAddress": {
+                                  "type": "string",
+                                  "pattern": "^0x[a-fA-F0-9]{40}$",
+                                  "description": "The contract address of the restaking strategy",
+                                  "example": "0xbeac0eeeeeeeeeeeeeeeeeeeeeeeeeeeeeebeac0"
+                                },
+                                "shares": {
+                                  "type": "string",
+                                  "description": "The amount of shares held in the strategy",
+                                  "example": "1277920000000000000000000"
+                                }
+                              },
+                              "required": ["strategyAddress", "shares"]
+                            },
+                            "description": "The list of strategy shares",
+                            "example": [
+                              {
+                                "strategyAddress": "0x93c4b944d05dfe6df7645a86cd2206016c51564d",
+                                "shares": "1000288824523326631"
+                              }
+                            ]
+                          },
+                          "createdAtBlock": {
+                            "type": "number",
+                            "description": "The block number when the withdrawal was recorded by EigenExplorer",
+                            "example": 19912470
+                          },
+                          "createdAt": {
+                            "type": "number",
+                            "description": "The time stamp when the withdrawal was recorded by EigenExplorer",
+                            "example": 1746854400
+                          },
+                          "updatedAtBlock": {
+                            "type": "number",
+                            "description": "The block number when the withdrawal was last updated",
+                            "example": 19912470
+                          },
+                          "updatedAt": {
+                            "type": "number",
+                            "description": "The time stamp when the withdrawal was last updated",
+                            "example": 1746854400
+                          },
+                          "isCompleted": {
+                            "type": "boolean",
+                            "description": "Indicates if the withdrawal is completed",
+                            "example": false
+                          }
+                        },
+                        "required": [
+                          "withdrawalRoot",
+                          "nonce",
+                          "stakerAddress",
+                          "delegatedTo",
+                          "withdrawerAddress",
+                          "shares",
+                          "createdAtBlock",
+                          "createdAt",
+                          "updatedAtBlock",
+                          "updatedAt",
+                          "isCompleted"
+                        ]
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "total": {
+                          "type": "number",
+                          "description": "Total number of records in the database",
+                          "example": 30
+                        },
+                        "page": {
+                          "type": "number",
+                          "description": "The page number of the current query",
+                          "example": 1
+                        },
+                        "limit": {
+                          "type": "number",
+                          "description": "The number of records returned for this query",
+                          "example": 12
+                        }
+                      },
+                      "required": ["total", "page", "limit"]
+                    }
+                  },
+                  "required": ["data", "meta"]
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/deposits-by-staker": {
+      "get": {
+        "operationId": "getStakerDeposits",
+        "summary": "Retrieve all deposits by staker address",
+        "description": "Returns all deposit data of the requested staker, including the transaction hash, token address, strategy address, shares and other relevant information.",
+        "tags": ["Stakers"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "address": {
+                    "type": "string",
+                    "pattern": "^0x[a-fA-F0-9]{40}$",
+                    "description": "The contract address of the staker",
+                    "example": "0x0000006c21964af0d420af8992851a30fa13a68b"
+                  },
+                  "page": {
+                    "type": "number",
+                    "description": "The page number to retrieve",
+                    "example": 1,
+                    "default": 1
+                  },
+                  "limit": {
+                    "type": "number",
+                    "description": "The number of records per page",
+                    "example": 12,
+                    "default": 12
+                  }
+                },
+                "required": ["address"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The list of deposits.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "transactionHash": {
+                            "type": "string",
+                            "description": "The hash of the transaction",
+                            "example": "0x9d0a355df5a937516dfaed6721b0b461a16b8fad005f66d7dbf56b8a39136297"
+                          },
+                          "stakerAddress": {
+                            "type": "string",
+                            "description": "The address of the staker",
+                            "example": "0x74ede5f75247fbdb9266d2b3a7be63b3db7611dd"
+                          },
+                          "tokenAddress": {
+                            "type": "string",
+                            "description": "The address of the token",
+                            "example": "0xe95a203b1a91a908f9b9ce46459d101078c2c3cb"
+                          },
+                          "strategyAddress": {
+                            "type": "string",
+                            "description": "The contract address of the restaking strategy",
+                            "example": "0x0fe4f44bee93503346a3ac9ee5a26b130a5796d6"
+                          },
+                          "shares": {
+                            "type": "string",
+                            "description": "The amount of shares held in the strategy",
+                            "example": "40888428658906049"
+                          },
+                          "createdAtBlock": {
+                            "type": "number",
+                            "description": "The block number when the withdrawal was recorded by EigenExplorer",
+                            "example": 19912470
+                          },
+                          "createdAt": {
+                            "type": "number",
+                            "description": "The time stamp when the withdrawal was recorded by EigenExplorer",
+                            "example": 1746854400
+                          }
+                        },
+                        "required": [
+                          "transactionHash",
+                          "stakerAddress",
+                          "tokenAddress",
+                          "strategyAddress",
+                          "shares",
+                          "createdAtBlock",
+                          "createdAt"
+                        ]
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "total": {
+                          "type": "number",
+                          "description": "Total number of records in the database",
+                          "example": 30
+                        },
+                        "page": {
+                          "type": "number",
+                          "description": "The page number of the current query",
+                          "example": 1
+                        },
+                        "limit": {
+                          "type": "number",
+                          "description": "The number of records returned for this query",
+                          "example": 12
+                        }
+                      },
+                      "required": ["total", "page", "limit"]
+                    }
+                  },
+                  "required": ["data", "meta"]
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/avs": {
+      "get": {
+        "operationId": "getAllAvs",
+        "summary": "Retrieve all AVS",
+        "description": "Returns all AVS records. This endpoint supports pagination.",
+        "tags": ["AVS"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "withTvl": {
+                    "type": "string",
+                    "enum": ["true", "false"],
+                    "default": "false",
+                    "description": "Toggle whether the route should calculate the TVL from shares",
+                    "example": "false"
+                  },
+                  "page": {
+                    "type": "number",
+                    "description": "The page number to retrieve",
+                    "example": 1,
+                    "default": 1
+                  },
+                  "limit": {
+                    "type": "number",
+                    "description": "The number of records per page",
+                    "example": 12,
+                    "default": 12
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The list of AVS records.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "address": {
+                            "type": "string",
+                            "pattern": "^0x[a-fA-F0-9]{40}$",
+                            "description": "AVS service manager contract address",
+                            "example": "0x35f4f28a8d3ff20eed10e087e8f96ea2641e6aa1"
+                          },
+                          "metadataURI": {
+                            "type": "string",
+                            "description": "The URI of the AVS metadata",
+                            "example": "https://example.com/metadata.json"
+                          },
+                          "totalStakers": {
+                            "type": "number",
+                            "description": "The total number of stakers staking in the AVS",
+                            "example": 10
+                          },
+                          "totalOperators": {
+                            "type": "number",
+                            "description": "The total number of operators operating the AVS",
+                            "example": 10
+                          },
+                          "createdAtBlock": {
+                            "type": "number",
+                            "description": "The block number at which the AVS was created",
+                            "example": 19631203
+                          },
+                          "updatedAtBlock": {
+                            "type": "number",
+                            "description": "The block number at which the AVS was last updated",
+                            "example": 19631203
+                          },
+                          "createdAt": {
+                            "type": "number",
+                            "description": "The time stamp at which the AVS was created",
+                            "example": 176834837
+                          },
+                          "updatedAt": {
+                            "type": "number",
+                            "description": "The time stamp at which the AVS was last updated",
+                            "example": 176834837
+                          },
+                          "shares": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "strategyAddress": {
+                                  "type": "string",
+                                  "pattern": "^0x[a-fA-F0-9]{40}$",
+                                  "description": "The contract address of the restaking strategy",
+                                  "example": "0xbeac0eeeeeeeeeeeeeeeeeeeeeeeeeeeeeebeac0"
+                                },
+                                "shares": {
+                                  "type": "string",
+                                  "description": "The amount of shares held in the strategy",
+                                  "example": "1277920000000000000000000"
+                                }
+                              },
+                              "required": ["strategyAddress", "shares"]
+                            },
+                            "description": "The strategy shares held in the AVS",
+                            "example": [
+                              {
+                                "strategyAddress": "0x93c4b944d05dfe6df7645a86cd2206016c51564d",
+                                "shares": "135064894598947935263152"
+                              },
+                              {
+                                "strategyAddress": "0x54945180db7943c0ed0fee7edab2bd24620256bc",
+                                "shares": "9323641881708650182301"
+                              }
+                            ]
+                          },
+                          "tvl": {
+                            "type": "object",
+                            "properties": {
+                              "tvlBeaconChain": {
+                                "type": "number",
+                                "description": "The TVL of Beacon Chain restaking strategy in ETH",
+                                "example": 1000000
+                              },
+                              "tvlWETH": {
+                                "type": "number",
+                                "description": "The TVL of WETH restaking strategy in ETH",
+                                "example": 1000000
+                              },
+                              "tvlStrategies": {
+                                "type": "object",
+                                "additionalProperties": {
+                                  "type": "number",
+                                  "description": "The total value locked (TVL) in the strategy, denominated in the strategy's native token",
+                                  "example": 1000000
+                                },
+                                "description": "The TVL of each individual restaking strategy in its native token",
+                                "example": {
+                                  "Eigen": 1000000,
+                                  "cbETH": 2000000
+                                }
+                              }
+                            },
+                            "required": [
+                              "tvlBeaconChain",
+                              "tvlWETH",
+                              "tvlStrategies"
+                            ],
+                            "description": "The total value locked (TVL) in the AVS",
+                            "example": {
+                              "tvlBeaconChain": 1000000,
+                              "tvlWETH": 1000000,
+                              "tvlStrategies": {
+                                "Eigen": 1000000,
+                                "cbETH": 2000000
+                              }
+                            }
+                          }
+                        },
+                        "required": [
+                          "address",
+                          "metadataURI",
+                          "totalStakers",
+                          "totalOperators",
+                          "createdAtBlock",
+                          "updatedAtBlock",
+                          "createdAt",
+                          "updatedAt",
+                          "shares"
+                        ]
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "total": {
+                          "type": "number",
+                          "description": "Total number of records in the database",
+                          "example": 30
+                        },
+                        "page": {
+                          "type": "number",
+                          "description": "The page number of the current query",
+                          "example": 1
+                        },
+                        "limit": {
+                          "type": "number",
+                          "description": "The number of records returned for this query",
+                          "example": 12
+                        }
+                      },
+                      "required": ["total", "page", "limit"]
+                    }
+                  },
+                  "required": ["data", "meta"]
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/all-avs-addresses": {
+      "get": {
+        "operationId": "getAllAvsAddresses",
+        "summary": "Retrieve all AVS addresses",
+        "description": "Returns a list of all AVS addresses. This page supports pagination.",
+        "tags": ["AVS"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "page": {
+                    "type": "number",
+                    "description": "The page number to retrieve",
+                    "example": 1,
+                    "default": 1
+                  },
+                  "limit": {
+                    "type": "number",
+                    "description": "The number of records per page",
+                    "example": 12,
+                    "default": 12
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The list of AVS addresses.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "metadataURI": {
+                            "type": "string",
+                            "description": "The metadata URI of the AVS",
+                            "example": "https://example.com/metadata.json"
+                          },
+                          "address": {
+                            "type": "string",
+                            "pattern": "^0x[a-fA-F0-9]{40}$",
+                            "description": "AVS service manager contract address",
+                            "example": "0x35f4f28a8d3ff20eed10e087e8f96ea2641e6aa1"
+                          }
+                        },
+                        "required": ["metadataURI", "address"]
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "total": {
+                          "type": "number",
+                          "description": "Total number of records in the database",
+                          "example": 30
+                        },
+                        "page": {
+                          "type": "number",
+                          "description": "The page number of the current query",
+                          "example": 1
+                        },
+                        "limit": {
+                          "type": "number",
+                          "description": "The number of records returned for this query",
+                          "example": 12
+                        }
+                      },
+                      "required": ["total", "page", "limit"]
+                    }
+                  },
+                  "required": ["data", "meta"]
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/avs-by-address": {
+      "get": {
+        "operationId": "getAvsByAddress",
+        "summary": "Retrieve an AVS by address",
+        "description": "Returns a single AVS record by address.",
+        "tags": ["AVS"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "address": {
+                    "type": "string",
+                    "pattern": "^0x[a-fA-F0-9]{40}$",
+                    "description": "AVS service manager contract address",
+                    "example": "0x35f4f28a8d3ff20eed10e087e8f96ea2641e6aa1"
+                  },
+                  "withTvl": {
+                    "type": "string",
+                    "enum": ["true", "false"],
+                    "default": "false",
+                    "description": "Toggle whether the route should calculate the TVL from shares",
+                    "example": "false"
+                  }
+                },
+                "required": ["address"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The AVS record found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "address": {
+                      "type": "string",
+                      "pattern": "^0x[a-fA-F0-9]{40}$",
+                      "description": "AVS service manager contract address",
+                      "example": "0x35f4f28a8d3ff20eed10e087e8f96ea2641e6aa1"
+                    },
+                    "metadataURI": {
+                      "type": "string",
+                      "description": "The metadata URI of the AVS",
+                      "example": "https://example.com/metadata.json"
+                    },
+                    "totalStakers": {
+                      "type": "number",
+                      "description": "The total number of stakers staking in the AVS",
+                      "example": 10
+                    },
+                    "totalOperators": {
+                      "type": "number",
+                      "description": "The total number of operators operating the AVS",
+                      "example": 10
+                    },
+                    "createdAtBlock": {
+                      "type": "string",
+                      "description": "The block number at which the AVS was created",
+                      "example": "19631203"
+                    },
+                    "updatedAtBlock": {
+                      "type": "string",
+                      "description": "The block number at which the AVS was last updated",
+                      "example": "19631203"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "description": "The time stamp at which the AVS was created",
+                      "example": "2024-04-11T08:31:11.000Z"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "description": "The time stamp at which the AVS was last updated",
+                      "example": "2024-04-11T08:31:11.000Z"
+                    },
+                    "shares": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "strategyAddress": {
+                            "type": "string",
+                            "pattern": "^0x[a-fA-F0-9]{40}$",
+                            "description": "The contract address of the restaking strategy",
+                            "example": "0xbeac0eeeeeeeeeeeeeeeeeeeeeeeeeeeeeebeac0"
+                          },
+                          "shares": {
+                            "type": "string",
+                            "description": "The amount of shares held in the strategy",
+                            "example": "1277920000000000000000000"
+                          }
+                        },
+                        "required": ["strategyAddress", "shares"]
+                      },
+                      "description": "The strategy shares held in the AVS",
+                      "example": [
+                        {
+                          "strategyAddress": "0x93c4b944d05dfe6df7645a86cd2206016c51564d",
+                          "shares": "135064894598947935263152"
+                        },
+                        {
+                          "strategyAddress": "0x54945180db7943c0ed0fee7edab2bd24620256bc",
+                          "shares": "9323641881708650182301"
+                        }
+                      ]
+                    },
+                    "tvl": {
+                      "type": "object",
+                      "properties": {
+                        "tvlBeaconChain": {
+                          "type": "number",
+                          "description": "The TVL of Beacon Chain restaking strategy in ETH",
+                          "example": 1000000
+                        },
+                        "tvlWETH": {
+                          "type": "number",
+                          "description": "The TVL of WETH restaking strategy in ETH",
+                          "example": 1000000
+                        },
+                        "tvlStrategies": {
+                          "type": "object",
+                          "additionalProperties": {
+                            "type": "number",
+                            "description": "The total value locked (TVL) in the strategy, denominated in the strategy's native token",
+                            "example": 1000000
+                          },
+                          "description": "The TVL of each individual restaking strategy in its native token",
+                          "example": {
+                            "Eigen": 1000000,
+                            "cbETH": 2000000
+                          }
+                        }
+                      },
+                      "required": [
+                        "tvlBeaconChain",
+                        "tvlWETH",
+                        "tvlStrategies"
+                      ],
+                      "description": "The total value locked (TVL) in the AVS",
+                      "example": {
+                        "tvlBeaconChain": 1000000,
+                        "tvlWETH": 1000000,
+                        "tvlStrategies": {
+                          "Eigen": 1000000,
+                          "cbETH": 2000000
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "address",
+                    "metadataURI",
+                    "totalStakers",
+                    "totalOperators",
+                    "createdAtBlock",
+                    "updatedAtBlock",
+                    "createdAt",
+                    "updatedAt",
+                    "shares"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/stakers-by-avs": {
+      "get": {
+        "operationId": "getAvsStakersByAddress",
+        "summary": "Retrieve all stakers for a given AVS address",
+        "description": "Returns all stakers for a given AVS address. This endpoint supports pagination.",
+        "tags": ["AVS"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "address": {
+                    "type": "string",
+                    "pattern": "^0x[a-fA-F0-9]{40}$",
+                    "description": "AVS service manager contract address",
+                    "example": "0x35f4f28a8d3ff20eed10e087e8f96ea2641e6aa1"
+                  },
+                  "withTvl": {
+                    "type": "string",
+                    "enum": ["true", "false"],
+                    "default": "false",
+                    "description": "Toggle whether the route should calculate the TVL from shares",
+                    "example": "false"
+                  },
+                  "page": {
+                    "type": "number",
+                    "description": "The page number to retrieve",
+                    "example": 1,
+                    "default": 1
+                  },
+                  "limit": {
+                    "type": "number",
+                    "description": "The number of records per page",
+                    "example": 12,
+                    "default": 12
+                  }
+                },
+                "required": ["address"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The stakers record found for the AVS.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "address": {
+                            "type": "string",
+                            "pattern": "^0x[a-fA-F0-9]{40}$",
+                            "description": "The contract address of the staker",
+                            "example": "0x0000006c21964af0d420af8992851a30fa13a68b"
+                          },
+                          "operatorAddress": {
+                            "type": "string",
+                            "pattern": "^0x[a-fA-F0-9]{40}$",
+                            "description": "The address of the operator",
+                            "example": "0x71c6f7ed8c2d4925d0baf16f6a85bb1736d412eb"
+                          },
+                          "createdAtBlock": {
+                            "type": "string",
+                            "description": "The block number at which the Staker made first delegation",
+                            "example": "19631203"
+                          },
+                          "updatedAtBlock": {
+                            "type": "string",
+                            "description": "The block number at which the Staker made last delegation",
+                            "example": "19631203"
+                          },
+                          "createdAt": {
+                            "type": "string",
+                            "description": "The time stamp at which the Staker made first delegation",
+                            "example": "2024-04-11T08:31:11.000Z"
+                          },
+                          "updatedAt": {
+                            "type": "string",
+                            "description": "The time stamp at which the Staker made last delegation",
+                            "example": "2024-04-11T08:31:11.000Z"
+                          },
+                          "shares": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "strategyAddress": {
+                                  "type": "string",
+                                  "pattern": "^0x[a-fA-F0-9]{40}$",
+                                  "description": "The contract address of the restaking strategy",
+                                  "example": "0x93c4b944d05dfe6df7645a86cd2206016c51564a"
+                                },
+                                "shares": {
+                                  "type": "string",
+                                  "description": "The amount of shares held in the strategy",
+                                  "example": "40888428658906049"
+                                }
+                              },
+                              "required": ["strategyAddress", "shares"]
+                            }
+                          },
+                          "tvl": {
+                            "type": "object",
+                            "properties": {
+                              "tvlBeaconChain": {
+                                "type": "number",
+                                "description": "The TVL of Beacon Chain restaking strategy in ETH",
+                                "example": 1000000
+                              },
+                              "tvlWETH": {
+                                "type": "number",
+                                "description": "The TVL of WETH restaking strategy in ETH",
+                                "example": 1000000
+                              },
+                              "tvlStrategies": {
+                                "type": "object",
+                                "additionalProperties": {
+                                  "type": "number",
+                                  "description": "The total value locked (TVL) in the strategy, denominated in the strategy's native token",
+                                  "example": 1000000
+                                },
+                                "description": "The TVL of each individual restaking strategy in its native token",
+                                "example": {
+                                  "Eigen": 1000000,
+                                  "cbETH": 2000000
+                                }
+                              }
+                            },
+                            "required": [
+                              "tvlBeaconChain",
+                              "tvlWETH",
+                              "tvlStrategies"
+                            ],
+                            "description": "The total value locked (TVL) in the AVS",
+                            "example": {
+                              "tvlBeaconChain": 1000000,
+                              "tvlWETH": 1000000,
+                              "tvlStrategies": {
+                                "Eigen": 1000000,
+                                "cbETH": 2000000
+                              }
+                            }
+                          }
+                        },
+                        "required": [
+                          "address",
+                          "operatorAddress",
+                          "createdAtBlock",
+                          "updatedAtBlock",
+                          "createdAt",
+                          "updatedAt",
+                          "shares"
+                        ]
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "total": {
+                          "type": "number",
+                          "description": "Total number of records in the database",
+                          "example": 30
+                        },
+                        "page": {
+                          "type": "number",
+                          "description": "The page number of the current query",
+                          "example": 1
+                        },
+                        "limit": {
+                          "type": "number",
+                          "description": "The number of records returned for this query",
+                          "example": 12
+                        }
+                      },
+                      "required": ["total", "page", "limit"]
+                    }
+                  },
+                  "required": ["data", "meta"]
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/operators-by-avs": {
+      "get": {
+        "operationId": "getAvsOperatorsByAddress",
+        "summary": "Retrieve all operators for a given AVS address",
+        "description": "Returns all operators for a given AVS address. This endpoint supports pagination.",
+        "tags": ["AVS"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "address": {
+                    "type": "string",
+                    "pattern": "^0x[a-fA-F0-9]{40}$",
+                    "description": "AVS service manager contract address",
+                    "example": "0x35f4f28a8d3ff20eed10e087e8f96ea2641e6aa1"
+                  },
+                  "withTvl": {
+                    "type": "string",
+                    "enum": ["true", "false"],
+                    "default": "false",
+                    "description": "Toggle whether the route should calculate the TVL from shares",
+                    "example": "false"
+                  },
+                  "page": {
+                    "type": "number",
+                    "description": "The page number to retrieve",
+                    "example": 1,
+                    "default": 1
+                  },
+                  "limit": {
+                    "type": "number",
+                    "description": "The number of records per page",
+                    "example": 12,
+                    "default": 12
+                  }
+                },
+                "required": ["address"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The operators record found for the AVS.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "address": {
+                            "type": "string",
+                            "pattern": "^0x[a-fA-F0-9]{40}$",
+                            "description": "The contract address of the AVS operator",
+                            "example": "0x09e6eb09213bdd3698bd8afb43ec3cb0ecff683a"
+                          },
+                          "metadataURI": {
+                            "type": "string",
+                            "description": "The URI of the AVS operator's metadata",
+                            "example": "https://example.com/metadata.json"
+                          },
+                          "createdAtBlock": {
+                            "type": "string",
+                            "description": "The block number at which the AVS Operator was registered",
+                            "example": "19631203"
+                          },
+                          "updatedAtBlock": {
+                            "type": "string",
+                            "description": "The block number at which the AVS Operator registration was last updated",
+                            "example": "19631203"
+                          },
+                          "createdAt": {
+                            "type": "string",
+                            "description": "The time stamp at which the AVS Operator was registered",
+                            "example": "2024-04-11T08:31:11.000Z"
+                          },
+                          "updatedAt": {
+                            "type": "string",
+                            "description": "The time stamp at which the AVS Operator registration was last updated",
+                            "example": "2024-04-11T08:31:11.000Z"
+                          },
+                          "shares": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "strategyAddress": {
+                                  "type": "string",
+                                  "pattern": "^0x[a-fA-F0-9]{40}$",
+                                  "description": "The contract address of the restaking strategy",
+                                  "example": "0xbeac0eeeeeeeeeeeeeeeeeeeeeeeeeeeeeebeac0"
+                                },
+                                "shares": {
+                                  "type": "string",
+                                  "description": "The amount of shares held in the strategy",
+                                  "example": "1277920000000000000000000"
+                                }
+                              },
+                              "required": ["strategyAddress", "shares"]
+                            },
+                            "description": "The strategy shares held in the AVS operator",
+                            "example": [
+                              {
+                                "strategyAddress": "0x93c4b944d05dfe6df7645a86cd2206016c51564d",
+                                "shares": "135064894598947935263152"
+                              },
+                              {
+                                "strategyAddress": "0x54945180db7943c0ed0fee7edab2bd24620256bc",
+                                "shares": "9323641881708650182301"
+                              }
+                            ]
+                          },
+                          "restakedStrategies": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "pattern": "^0x[a-fA-F0-9]{40}$"
+                            },
+                            "description": "The list of restaked strategies",
+                            "example": [
+                              "0x35f4f28a8d3ff20eed10e087e8f96ea2641e6aa1"
+                            ]
+                          },
+                          "totalStakers": {
+                            "type": "number",
+                            "description": "The total number of stakers who have delegated to this AVS operator",
+                            "example": 10
+                          },
+                          "tvl": {
+                            "type": "object",
+                            "properties": {
+                              "tvlBeaconChain": {
+                                "type": "number",
+                                "description": "The TVL of Beacon Chain restaking strategy in ETH",
+                                "example": 1000000
+                              },
+                              "tvlWETH": {
+                                "type": "number",
+                                "description": "The TVL of WETH restaking strategy in ETH",
+                                "example": 1000000
+                              },
+                              "tvlStrategies": {
+                                "type": "object",
+                                "additionalProperties": {
+                                  "type": "number",
+                                  "description": "The total value locked (TVL) in the strategy, denominated in the strategy's native token",
+                                  "example": 1000000
+                                },
+                                "description": "The TVL of each individual restaking strategy in its native token",
+                                "example": {
+                                  "Eigen": 1000000,
+                                  "cbETH": 2000000
+                                }
+                              }
+                            },
+                            "required": [
+                              "tvlBeaconChain",
+                              "tvlWETH",
+                              "tvlStrategies"
+                            ],
+                            "description": "The total value locked (TVL) in the AVS",
+                            "example": {
+                              "tvlBeaconChain": 1000000,
+                              "tvlWETH": 1000000,
+                              "tvlStrategies": {
+                                "Eigen": 1000000,
+                                "cbETH": 2000000
+                              }
+                            }
+                          }
+                        },
+                        "required": [
+                          "address",
+                          "metadataURI",
+                          "createdAtBlock",
+                          "updatedAtBlock",
+                          "createdAt",
+                          "updatedAt",
+                          "shares",
+                          "restakedStrategies",
+                          "totalStakers"
+                        ]
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "total": {
+                          "type": "number",
+                          "description": "Total number of records in the database",
+                          "example": 30
+                        },
+                        "page": {
+                          "type": "number",
+                          "description": "The page number of the current query",
+                          "example": 1
+                        },
+                        "limit": {
+                          "type": "number",
+                          "description": "The number of records returned for this query",
+                          "example": 12
+                        }
+                      },
+                      "required": ["total", "page", "limit"]
+                    }
+                  },
+                  "required": ["data", "meta"]
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
     "/deposits": {
       "get": {
         "operationId": "getAllDeposits",

@@ -110,9 +110,9 @@
                             "example": 19912470
                           },
                           "createdAt": {
-                            "type": "string",
+                            "type": "number",
                             "description": "The time stamp when the withdrawal was recorded by EigenExplorer",
-                            "example": "2024-07-07T23:53:35.000Z"
+                            "example": 1727836560
                           }
                         },
                         "required": [
@@ -134,12 +134,12 @@
                           "description": "Total number of records in the database",
                           "example": 30
                         },
-                        "skip": {
+                        "page": {
                           "type": "number",
-                          "description": "The number of skiped records for this query",
-                          "example": 0
+                          "description": "The page number of the current query",
+                          "example": 1
                         },
-                        "take": {
+                        "limit": {
                           "type": "number",
                           "description": "The number of records returned for this query",
                           "example": 12
@@ -195,7 +195,7 @@
                     "description": "The number of records to skip for pagination",
                     "example": 1
                   },
-                  "take": {
+                  "limit": {
                     "type": "number",
                     "default": 12,
                     "description": "The number of records to return for pagination",
@@ -301,9 +301,9 @@
                             "example": 19912470
                           },
                           "createdAt": {
-                            "type": "string",
+                            "type": "number",
                             "description": "The time stamp when the withdrawal was recorded by EigenExplorer",
-                            "example": "2024-07-07T23:53:35.000Z"
+                            "example": 1727836560
                           },
                           "updatedAtBlock": {
                             "type": "number",
@@ -311,9 +311,9 @@
                             "example": 19912470
                           },
                           "updatedAt": {
-                            "type": "string",
+                            "type": "number",
                             "description": "The time stamp when the withdrawal was last updated",
-                            "example": "2024-07-07T23:53:35.000Z"
+                            "example": 1727836560
                           },
                           "isCompleted": {
                             "type": "boolean",
@@ -344,18 +344,18 @@
                           "description": "Total number of records in the database",
                           "example": 30
                         },
-                        "skip": {
+                        "page": {
                           "type": "number",
-                          "description": "The number of skiped records for this query",
-                          "example": 0
+                          "description": "The current page number",
+                          "example": 1
                         },
-                        "take": {
+                        "limit": {
                           "type": "number",
                           "description": "The number of records returned for this query",
                           "example": 12
                         }
                       },
-                      "required": ["total", "skip", "take"]
+                      "required": ["total", "page", "limit"]
                     }
                   },
                   "required": ["data", "meta"]
@@ -476,9 +476,9 @@
                       "example": 19912470
                     },
                     "createdAt": {
-                      "type": "string",
+                      "type": "number",
                       "description": "The time stamp when the withdrawal was recorded by EigenExplorer",
-                      "example": "2024-07-07T23:53:35.000Z"
+                      "example": 1727836560
                     },
                     "updatedAtBlock": {
                       "type": "number",
@@ -486,9 +486,9 @@
                       "example": 19912470
                     },
                     "updatedAt": {
-                      "type": "string",
+                      "type": "number",
                       "description": "The time stamp when the withdrawal was last updated",
-                      "example": "2024-07-07T23:53:35.000Z"
+                      "example": 1727836560
                     },
                     "isCompleted": {
                       "type": "boolean",
@@ -508,6 +508,493 @@
                     "updatedAtBlock",
                     "updatedAt",
                     "isCompleted"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/operators": {
+      "get": {
+        "operationId": "getAllOperators",
+        "summary": "Retrieve all operators",
+        "description": "Returns all operator records. This endpoint supports pagination.",
+        "tags": ["Operators"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "withTvl": {
+                    "type": "string",
+                    "enum": ["true", "false"],
+                    "default": "false",
+                    "description": "Toggle whether the route should calculate the TVL from shares",
+                    "example": "false"
+                  },
+                  "page": {
+                    "type": "number",
+                    "description": "The page number to retrieve",
+                    "example": 1,
+                    "default": 1
+                  },
+                  "limit": {
+                    "type": "number",
+                    "description": "The number of records per page",
+                    "example": 12,
+                    "default": 12
+                  }
+                },
+                "required": ["page", "limit"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The list of operator records.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "address": {
+                            "type": "string",
+                            "pattern": "^0x[a-fA-F0-9]{40}$",
+                            "description": "The contract address of the AVS operator",
+                            "example": "0x09e6eb09213bdd3698bd8afb43ec3cb0ecff683a"
+                          },
+                          "metadataURI": {
+                            "type": "string",
+                            "description": "The URI of the metadata of the AVS operator",
+                            "example": "https://example.com/metadata.json"
+                          },
+                          "totalStakers": {
+                            "type": "number",
+                            "description": "The total number of stakers who have delegated to this AVS operator",
+                            "example": 10
+                          },
+                          "totalAvs": {
+                            "type": "number",
+                            "description": "The total number of AVS opted by the AVS operator",
+                            "example": 10
+                          },
+                          "createdAtBlock": {
+                            "type": "number",
+                            "description": "The block number at which the AVS Operator was registered",
+                            "example": 19631203
+                          },
+                          "updatedAtBlock": {
+                            "type": "number",
+                            "description": "The block number at which the AVS Operator registration was last updated",
+                            "example": 19631203
+                          },
+                          "createdAt": {
+                            "type": "string",
+                            "description": "The time stamp at which the AVS Operator was registered",
+                            "example": 1727836560
+                          },
+                          "updatedAt": {
+                            "type": "number",
+                            "description": "The time stamp at which the AVS Operator registration was last updated",
+                            "example": 1727836560
+                          },
+                          "shares": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "strategyAddress": {
+                                  "type": "string",
+                                  "pattern": "^0x[a-fA-F0-9]{40}$",
+                                  "description": "The contract address of the restaking strategy",
+                                  "example": "0xbeac0eeeeeeeeeeeeeeeeeeeeeeeeeeeeeebeac0"
+                                },
+                                "shares": {
+                                  "type": "string",
+                                  "description": "The amount of shares held in the strategy",
+                                  "example": "1277920000000000000000000"
+                                }
+                              },
+                              "required": ["strategyAddress", "shares"]
+                            },
+                            "description": "The strategy shares held in the AVS operator",
+                            "example": [
+                              {
+                                "strategyAddress": "0x93c4b944d05dfe6df7645a86cd2206016c51564d",
+                                "shares": "135064894598947935263152"
+                              },
+                              {
+                                "strategyAddress": "0x54945180db7943c0ed0fee7edab2bd24620256bc",
+                                "shares": "9323641881708650182301"
+                              }
+                            ]
+                          },
+                          "avsRegistrations": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "avsAddress": {
+                                  "type": "string",
+                                  "pattern": "^0x[a-fA-F0-9]{40}$",
+                                  "description": "AVS service manager contract address",
+                                  "example": "0x870679e138bcdf293b7ff14dd44b70fc97e12fc0"
+                                },
+                                "isActive": {
+                                  "type": "boolean",
+                                  "description": "True indicates operator is an active participant while False indicates it used to be one but not anymore",
+                                  "example": false
+                                }
+                              },
+                              "required": ["avsAddress", "isActive"]
+                            },
+                            "description": "Operator AVS registrations and their participation status",
+                            "example": [
+                              {
+                                "avsAddress": "0x870679e138bcdf293b7ff14dd44b70fc97e12fc0",
+                                "isActive": true
+                              },
+                              {
+                                "avsAddress": "0xe8e59c6c8b56f2c178f63bcfc4ce5e5e2359c8fc",
+                                "isActive": false
+                              }
+                            ]
+                          },
+                          "tvl": {
+                            "type": "object",
+                            "properties": {
+                              "tvlBeaconChain": {
+                                "type": "number",
+                                "description": "The TVL of Beacon Chain restaking strategy in ETH",
+                                "example": 1000000
+                              },
+                              "tvlWETH": {
+                                "type": "number",
+                                "description": "The TVL of WETH restaking strategy in ETH",
+                                "example": 1000000
+                              },
+                              "tvlStrategies": {
+                                "type": "object",
+                                "additionalProperties": {
+                                  "type": "number",
+                                  "description": "The total value locked (TVL) in the strategy, denominated in the strategy's native token",
+                                  "example": 1000000
+                                },
+                                "description": "The TVL of each individual restaking strategy in its native token",
+                                "example": {
+                                  "Eigen": 1000000,
+                                  "cbETH": 2000000
+                                }
+                              }
+                            },
+                            "required": [
+                              "tvlBeaconChain",
+                              "tvlWETH",
+                              "tvlStrategies"
+                            ],
+                            "description": "The total value locked (TVL) in the AVS operator",
+                            "example": {
+                              "tvlBeaconChain": 1000000,
+                              "tvlWETH": 1000000,
+                              "tvlStrategies": {
+                                "Eigen": 1000000,
+                                "cbETH": 2000000
+                              }
+                            }
+                          }
+                        },
+                        "required": [
+                          "address",
+                          "metadataURI",
+                          "totalStakers",
+                          "totalAvs",
+                          "createdAtBlock",
+                          "updatedAtBlock",
+                          "createdAt",
+                          "updatedAt",
+                          "shares",
+                          "avsRegistrations"
+                        ]
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "total": {
+                          "type": "number",
+                          "description": "Total number of records in the database",
+                          "example": 30
+                        },
+                        "page": {
+                          "type": "number",
+                          "description": "The page number of the current response",
+                          "example": 1
+                        },
+                        "limit": {
+                          "type": "number",
+                          "description": "The number of records returned for this query",
+                          "example": 12
+                        }
+                      },
+                      "required": ["total", "page", "limit"]
+                    }
+                  },
+                  "required": ["data", "meta"]
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/operator-by-address": {
+      "get": {
+        "operationId": "getOperatorByAddress",
+        "summary": "Retrieve an operator by address",
+        "description": "Returns an operator record by address.",
+        "tags": ["Operators"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "address": {
+                    "type": "string",
+                    "pattern": "^0x[a-fA-F0-9]{40}$",
+                    "description": "The contract address of the AVS operator",
+                    "example": "0x09e6eb09213bdd3698bd8afb43ec3cb0ecff683a"
+                  },
+                  "withTvl": {
+                    "type": "string",
+                    "enum": ["true", "false"],
+                    "default": "false",
+                    "description": "Toggle whether the route should calculate the TVL from shares",
+                    "example": "false"
+                  }
+                },
+                "required": ["address"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The record of the requested operator.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "address": {
+                      "type": "string",
+                      "pattern": "^0x[a-fA-F0-9]{40}$",
+                      "description": "The contract address of the AVS operator",
+                      "example": "0x09e6eb09213bdd3698bd8afb43ec3cb0ecff683a"
+                    },
+                    "metadataURI": {
+                      "type": "string",
+                      "description": "The URI of the metadata of the AVS operator",
+                      "example": "https://example.com/metadata.json"
+                    },
+                    "totalStakers": {
+                      "type": "number",
+                      "description": "The total number of stakers who have delegated to this AVS operator",
+                      "example": 10
+                    },
+                    "totalAvs": {
+                      "type": "number",
+                      "description": "The total number of AVS opted by the AVS operator",
+                      "example": 10
+                    },
+                    "createdAtBlock": {
+                      "type": "number",
+                      "description": "The block number at which the AVS Operator was registered",
+                      "example": 19631203
+                    },
+                    "updatedAtBlock": {
+                      "type": "number",
+                      "description": "The block number at which the AVS Operator registration was last updated",
+                      "example": 19631203
+                    },
+                    "createdAt": {
+                      "type": "number",
+                      "description": "The time stamp at which the AVS Operator was registered",
+                      "example": 1727836560
+                    },
+                    "updatedAt": {
+                      "type": "number",
+                      "description": "The time stamp at which the AVS Operator registration was last updated",
+                      "example": 1727836560
+                    },
+                    "shares": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "strategyAddress": {
+                            "type": "string",
+                            "pattern": "^0x[a-fA-F0-9]{40}$",
+                            "description": "The contract address of the restaking strategy",
+                            "example": "0xbeac0eeeeeeeeeeeeeeeeeeeeeeeeeeeeeebeac0"
+                          },
+                          "shares": {
+                            "type": "string",
+                            "description": "The amount of shares held in the strategy",
+                            "example": "1277920000000000000000000"
+                          }
+                        },
+                        "required": ["strategyAddress", "shares"]
+                      },
+                      "description": "The strategy shares held in the AVS operator",
+                      "example": [
+                        {
+                          "strategyAddress": "0x93c4b944d05dfe6df7645a86cd2206016c51564d",
+                          "shares": "135064894598947935263152"
+                        },
+                        {
+                          "strategyAddress": "0x54945180db7943c0ed0fee7edab2bd24620256bc",
+                          "shares": "9323641881708650182301"
+                        }
+                      ]
+                    },
+                    "avsRegistrations": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "avsAddress": {
+                            "type": "string",
+                            "pattern": "^0x[a-fA-F0-9]{40}$",
+                            "description": "AVS service manager contract address",
+                            "example": "0x870679e138bcdf293b7ff14dd44b70fc97e12fc0"
+                          },
+                          "isActive": {
+                            "type": "boolean",
+                            "description": "True indicates operator is an active participant while False indicates it used to be one but not anymore",
+                            "example": false
+                          }
+                        },
+                        "required": ["avsAddress", "isActive"]
+                      },
+                      "description": "Operator AVS registrations and their participation status",
+                      "example": [
+                        {
+                          "avsAddress": "0x870679e138bcdf293b7ff14dd44b70fc97e12fc0",
+                          "isActive": true
+                        },
+                        {
+                          "avsAddress": "0xe8e59c6c8b56f2c178f63bcfc4ce5e5e2359c8fc",
+                          "isActive": false
+                        }
+                      ]
+                    },
+                    "tvl": {
+                      "type": "object",
+                      "properties": {
+                        "tvlBeaconChain": {
+                          "type": "number",
+                          "description": "The TVL of Beacon Chain restaking strategy in ETH",
+                          "example": 1000000
+                        },
+
+                        "tvlWETH": {
+                          "type": "number",
+                          "description": "The TVL of WETH restaking strategy in ETH",
+                          "example": 1000000
+                        },
+                        "tvlStrategies": {
+                          "type": "object",
+                          "additionalProperties": {
+                            "type": "number",
+                            "description": "The total value locked (TVL) in the strategy, denominated in the strategy's native token",
+                            "example": 1000000
+                          },
+                          "description": "The TVL of each individual restaking strategy in its native token",
+                          "example": {
+                            "Eigen": 1000000,
+                            "cbETH": 2000000
+                          }
+                        }
+                      },
+                      "required": [
+                        "tvlBeaconChain",
+                        "tvlWETH",
+                        "tvlStrategies"
+                      ],
+                      "description": "The total value locked (TVL) in the AVS operator",
+                      "example": {
+                        "tvlBeaconChain": 1000000,
+                        "tvlWETH": 1000000,
+                        "tvlStrategies": {
+                          "Eigen": 1000000,
+                          "cbETH": 2000000
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "address",
+                    "metadataURI",
+                    "totalStakers",
+                    "totalAvs",
+                    "createdAtBlock",
+                    "updatedAtBlock",
+                    "createdAt",
+                    "updatedAt",
+                    "shares",
+                    "avsRegistrations"
                   ]
                 }
               }

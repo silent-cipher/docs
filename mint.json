@@ -45,6 +45,13 @@
       ]
     },
     {
+      "group": "Operators",
+      "pages": [
+        "api-reference/operators/index",
+        "api-reference/operators/operator-by-address"
+      ]
+    },
+    {
       "group": "Deposits",
       "pages": ["api-reference/deposits/index"]
     },

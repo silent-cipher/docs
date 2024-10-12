@@ -45,6 +45,23 @@
       ]
     },
     {
+      "group": "EigenDA",
+      "pages": ["api-reference/eigenda/operator"]
+    },
+    {
+      "group": "Metrics",
+      "pages": [
+        "api-reference/metrics/index",
+        "api-reference/metrics/metrics-tvl",
+        "api-reference/metrics/metrics-tvl-strategy",
+        "api-reference/metrics/total-avs",
+        "api-reference/metrics/total-stakers",
+        "api-reference/metrics/total-operators",
+        "api-reference/metrics/total-deposits",
+        "api-reference/metrics/total-withdrawals"
+      ]
+    },
+    {
       "group": "AVS",
       "pages": [
         "api-reference/avs/index",

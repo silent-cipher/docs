@@ -84,7 +84,9 @@
       "group": "Operators",
       "pages": [
         "api-reference/operators/index",
-        "api-reference/operators/operator-by-address"
+        "api-reference/operators/operator-by-address",
+        "api-reference/operators/history-by-operator",
+        "api-reference/operators/restake-history-by-operator"
       ]
     },
     {

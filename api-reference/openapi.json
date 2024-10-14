@@ -10,7 +10,7 @@
   },
   "servers": [
     {
-      "url": "https://api.blockflow.network/rest/<API_KEY>"
+      "url": "https://api.blockflow.network/rest/fec9c10b-69e4-4d1b-aee0-38ecdaac9e99"
     }
   ],
   "security": [

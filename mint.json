@@ -25,14 +25,14 @@
       "url": "https://app.blockflow.network/"
     }
   ],
-  "topbarCtaButton": {
-    "name": "Explorer",
-    "url": "https://www.cctpscan.xyz/"
-  },
   "tabs": [
     {
-      "name": "API Reference",
+      "name": "EigenLayer",
       "url": "api-reference"
+    },
+    {
+      "name": "EigenDA",
+      "url": "eigenda-reference"
     }
   ],
   "navigation": [
@@ -45,8 +45,16 @@
       ]
     },
     {
+      "group": "API Documentation",
+      "pages": [
+        "eigenda-reference/introduction",
+        "eigenda-reference/prerequisites",
+        "eigenda-reference/errors"
+      ]
+    },
+    {
       "group": "EigenDA",
-      "pages": ["api-reference/eigenda/operator"]
+      "pages": ["eigenda-reference/eigenda/operator"]
     },
     {
       "group": "Metrics",

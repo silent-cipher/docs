@@ -4,7 +4,7 @@ description: "Troubleshoot problems with comprehensive breakdown of all error co
 icon: "hexagon-exclamation"
 ---
 
-CCTP Explorer API returns machine readable error codes, human readable error messages and a link to the docs for more information.
+Rescan API returns machine readable error codes, human readable error messages and a link to the docs for more information.
 
 Here is how an error response looks like:
 
@@ -12,14 +12,14 @@ Here is how an error response looks like:
 {
   "status": 400,
   "body": {
-    "errors": ["Invalid startDate. Must be a unixtimestamp."]
+    "errors": ["operatorAddress is required."]
   }
 }
 ```
 
 ## Error Codes
 
-Here is a list of all error codes CCTP Explorer API returns:
+Here is a list of all error codes Rescan API returns:
 
 ### `bad_request`
 

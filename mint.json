@@ -42,7 +42,15 @@
     },
     {
       "group": "API Documentation",
-      "pages": ["eigenda-reference/introduction"]
+      "pages": [
+        "eigenda-reference/introduction",
+        "eigenda-reference/prerequisites",
+        "eigenda-reference/errors"
+      ]
+    },
+    {
+      "group": "EigenDA",
+      "pages": ["eigenda-reference/eigenda/operator"]
     }
   ],
   "footerSocials": {

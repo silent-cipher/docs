@@ -38,75 +38,11 @@
   "navigation": [
     {
       "group": "API Documentation",
-      "pages": [
-        "api-reference/introduction",
-        "api-reference/prerequisites",
-        "api-reference/errors"
-      ]
+      "pages": ["api-reference/introduction"]
     },
     {
       "group": "API Documentation",
-      "pages": [
-        "eigenda-reference/introduction",
-        "eigenda-reference/prerequisites",
-        "eigenda-reference/errors"
-      ]
-    },
-    {
-      "group": "EigenDA",
-      "pages": ["eigenda-reference/eigenda/operator"]
-    },
-    {
-      "group": "Metrics",
-      "pages": [
-        "api-reference/metrics/index",
-        "api-reference/metrics/metrics-tvl",
-        "api-reference/metrics/metrics-tvl-strategy",
-        "api-reference/metrics/total-avs",
-        "api-reference/metrics/total-stakers",
-        "api-reference/metrics/total-operators",
-        "api-reference/metrics/total-deposits",
-        "api-reference/metrics/total-withdrawals"
-      ]
-    },
-    {
-      "group": "AVS",
-      "pages": [
-        "api-reference/avs/index",
-        "api-reference/avs/avs-by-address",
-        "api-reference/avs/all-avs-addresses",
-        "api-reference/avs/stakers-by-avs",
-        "api-reference/avs/operators-by-avs"
-      ]
-    },
-    {
-      "group": "Stakers",
-      "pages": [
-        "api-reference/stakers/index",
-        "api-reference/stakers/staker-by-address",
-        "api-reference/stakers/withdrawals-by-staker",
-        "api-reference/stakers/deposits-by-staker"
-      ]
-    },
-    {
-      "group": "Operators",
-      "pages": [
-        "api-reference/operators/index",
-        "api-reference/operators/operator-by-address",
-        "api-reference/operators/history-by-operator",
-        "api-reference/operators/restake-history-by-operator"
-      ]
-    },
-    {
-      "group": "Deposits",
-      "pages": ["api-reference/deposits/index"]
-    },
-    {
-      "group": "Withdrawals",
-      "pages": [
-        "api-reference/withdrawals/index",
-        "api-reference/withdrawals/withdrawal-by-root"
-      ]
+      "pages": ["eigenda-reference/introduction"]
     }
   ],
   "footerSocials": {

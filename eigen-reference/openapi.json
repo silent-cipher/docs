@@ -1445,12 +1445,12 @@
                                   },
                                   "createdAtBlock": {
                                     "type": "number",
-                                    "description": "The block number when the withdrawal was recorded by EigenExplorer",
+                                    "description": "The block number when the withdrawal was recorded by Rescan",
                                     "example": 19912470
                                   },
                                   "createdAt": {
                                     "type": "number",
-                                    "description": "The time stamp when the withdrawal was recorded by EigenExplorer",
+                                    "description": "The time stamp when the withdrawal was recorded by Rescan",
                                     "example": 1746854400
                                   },
                                   "updatedAtBlock": {
@@ -1627,12 +1627,12 @@
                                   },
                                   "createdAtBlock": {
                                     "type": "number",
-                                    "description": "The block number when the withdrawal was recorded by EigenExplorer",
+                                    "description": "The block number when the withdrawal was recorded by Rescan",
                                     "example": 19912470
                                   },
                                   "createdAt": {
                                     "type": "number",
-                                    "description": "The time stamp when the withdrawal was recorded by EigenExplorer",
+                                    "description": "The time stamp when the withdrawal was recorded by Rescan",
                                     "example": 1746854400
                                   }
                                 },
@@ -3061,12 +3061,12 @@
                                   },
                                   "createdAtBlock": {
                                     "type": "number",
-                                    "description": "The block number when the withdrawal was recorded by EigenExplorer",
+                                    "description": "The block number when the withdrawal was recorded by Rescan",
                                     "example": 19912470
                                   },
                                   "createdAt": {
                                     "type": "number",
-                                    "description": "The time stamp when the withdrawal was recorded by EigenExplorer",
+                                    "description": "The time stamp when the withdrawal was recorded by Rescan",
                                     "example": 1727836560
                                   }
                                 },
@@ -3268,12 +3268,12 @@
                                   },
                                   "createdAtBlock": {
                                     "type": "number",
-                                    "description": "The block number when the withdrawal was recorded by EigenExplorer",
+                                    "description": "The block number when the withdrawal was recorded by Rescan",
                                     "example": 19912470
                                   },
                                   "createdAt": {
                                     "type": "number",
-                                    "description": "The time stamp when the withdrawal was recorded by EigenExplorer",
+                                    "description": "The time stamp when the withdrawal was recorded by Rescan",
                                     "example": 1727836560
                                   },
                                   "updatedAtBlock": {
@@ -3459,12 +3459,12 @@
                             },
                             "createdAtBlock": {
                               "type": "number",
-                              "description": "The block number when the withdrawal was recorded by EigenExplorer",
+                              "description": "The block number when the withdrawal was recorded by Rescan",
                               "example": 19912470
                             },
                             "createdAt": {
                               "type": "number",
-                              "description": "The time stamp when the withdrawal was recorded by EigenExplorer",
+                              "description": "The time stamp when the withdrawal was recorded by Rescan",
                               "example": 1727836560
                             },
                             "updatedAtBlock": {
@@ -4193,7 +4193,7 @@
                     "doc_url": {
                       "type": "string",
                       "description": "A link to our documentation with more details about this error code",
-                      "example": "https://docs.eigenexplorer.com/api-reference/errors#bad_request"
+                      "example": "https://docs.rescan.dev.com/api-reference/errors#bad_request"
                     }
                   },
                   "required": ["code", "message"]
@@ -4228,7 +4228,7 @@
                     "doc_url": {
                       "type": "string",
                       "description": "A link to our documentation with more details about this error code",
-                      "example": "https://docs.eigenexplorer.com/api-reference/errors#unauthorized"
+                      "example": "https://docs.rescan.dev.com/api-reference/errors#unauthorized"
                     }
                   },
                   "required": ["code", "message"]
@@ -4263,7 +4263,7 @@
                     "doc_url": {
                       "type": "string",
                       "description": "A link to our documentation with more details about this error code",
-                      "example": "https://docs.eigenexplorer.com/api-reference/errors#forbidden"
+                      "example": "https://docs.rescan.dev.com/api-reference/errors#forbidden"
                     }
                   },
                   "required": ["code", "message"]
@@ -4298,7 +4298,7 @@
                     "doc_url": {
                       "type": "string",
                       "description": "A link to our documentation with more details about this error code",
-                      "example": "https://docs.eigenexplorer.com/api-reference/errors#not_found"
+                      "example": "https://docs.rescan.dev.com/api-reference/errors#not_found"
                     }
                   },
                   "required": ["code", "message"]
@@ -4333,7 +4333,7 @@
                     "doc_url": {
                       "type": "string",
                       "description": "A link to our documentation with more details about this error code",
-                      "example": "https://docs.eigenexplorer.com/api-reference/errors#unprocessable_entity"
+                      "example": "https://docs.rescan.dev.com/api-reference/errors#unprocessable_entity"
                     }
                   },
                   "required": ["code", "message"]
@@ -4368,7 +4368,7 @@
                     "doc_url": {
                       "type": "string",
                       "description": "A link to our documentation with more details about this error code",
-                      "example": "https://docs.eigenexplorer.com/api-reference/errors#rate_limit_exceeded"
+                      "example": "https://docs.rescan.dev.com/api-reference/errors#rate_limit_exceeded"
                     }
                   },
                   "required": ["code", "message"]
@@ -4403,7 +4403,7 @@
                     "doc_url": {
                       "type": "string",
                       "description": "A link to our documentation with more details about this error code",
-                      "example": "https://docs.eigenexplorer.com/api-reference/errors#internal_server_error"
+                      "example": "https://docs.rescan.dev.com/api-reference/errors#internal_server_error"
                     }
                   },
                   "required": ["code", "message"]

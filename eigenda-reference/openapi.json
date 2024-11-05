@@ -20,7 +20,7 @@
   ],
   "paths": {
     "/operator-info": {
-      "get": {
+      "post": {
         "operationId": "getBatchDetails",
         "summary": "Retrieve Operator Batch Details",
         "description": "Returns operator details including socket, batches details",

@@ -1,6 +1,6 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Eigen Explorer",
+  "name": "ReScan",
   "logo": {
     "dark": "/logo/blockflow-dark.svg",
     "light": "/logo/blockflow-light.svg"

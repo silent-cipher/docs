@@ -1,58 +1,165 @@
 ---
 title: "Errors"
-description: "Troubleshoot problems with comprehensive breakdown of all error codes"
+description: "A complete guide to API error codes and their resolutions"
 icon: "hexagon-exclamation"
 ---
 
-Rescan API returns machine readable error codes, human readable error messages and a link to the docs for more information.
+Our API uses standard HTTP status codes and consistent error response formats across all endpoints. Each error response includes a status code and a body containing an array of error messages.
 
-Here is how an error response looks like:
+## Error Response Format
+
+All API error responses follow this format:
 
 ```json
 {
   "status": 400,
   "body": {
-    "errors": ["operatorAddress is required."]
+    "errors": ["Detailed error message here"]
   }
 }
 ```
 
 ## Error Codes
 
-Here is a list of all error codes Rescan API returns:
+Here's a comprehensive list of error codes returned by the API:
 
-### `bad_request`
+### `400 Bad Request`
 
-- **Status:** 400 (Note: The HTTP response status will be `200`, but the JSON response will contain the actual status code)
-- **Problem:** The request is malformed, either missing required fields, using wrong datatypes, or being syntactically incorrect.
-- **Solution:** Check the request and make sure it is properly formatted. You need to check the status field in the JSON response, not the HTTP response status.
+- **Problem:** The request is invalid or missing required parameters
+- **Common causes:**
+  - Missing required parameters (e.g., "Staker address is required")
+  - Invalid pagination parameters
+  - Invalid Ethereum addresses (must match pattern: ^0x[a-fA-F0-9]{40}$)
+  - Invalid withdrawal roots (must match pattern: ^0x[a-fA-F0-9]{64}$)
+- **Example responses:**
+  ```json
+  {
+    "status": 400,
+    "body": {
+      "errors": ["Operator address is required"]
+    }
+  }
+  ```
+  ```json
+  {
+    "status": 400,
+    "body": {
+      "errors": ["Invalid page number", "Invalid limit value"]
+    }
+  }
+  ```
 
-### `unauthorized`
+### `401 Unauthorized`
 
-- **Status:** 401
-- **Problem:** The request has not been applied because it lacks valid authentication credentials for the target resource.
-- **Solution:** Make sure you are using the correct API key or access token.
+- **Problem:** Authentication failed or authentication credentials were not provided
+- **Solution:** Ensure you're providing valid authentication credentials
+- **Example response:**
+  ```json
+  {
+    "status": 401,
+    "body": {
+      "errors": ["Authentication required"]
+    }
+  }
+  ```
 
-### `forbidden`
+### `403 Forbidden`
 
-- **Status:** 403
-- **Problem:** The server understood the request, but is refusing to fulfill it because the client lacks proper permission.
-- **Solution:** Make sure you have the necessary permissions to access the resource.
+- **Problem:** The request is not allowed, likely due to permission issues
+- **Solution:** Verify you have the necessary permissions for the requested resource
+- **Example response:**
+  ```json
+  {
+    "status": 403,
+    "body": {
+      "errors": ["Access forbidden"]
+    }
+  }
+  ```
 
-### `not_found`
+### `404 Not Found`
 
-- **Status:** 404
-- **Problem:** The requested resource was not found.
-- **Solution:** Check the request and make sure the resource exists.
+- **Problem:** The requested resource doesn't exist
+- **Common scenarios:**
+  - Staker not found
+  - Withdrawal not found
+  - Operator not found
+- **Example response:**
+  ```json
+  {
+    "status": 404,
+    "body": {
+      "errors": ["Withdrawal not found"]
+    }
+  }
+  ```
 
-### `internal_server_error`
+### `422 Unprocessable Entity`
 
-- **Status:** 500
-- **Problem:** The server encountered an unexpected condition that prevented it from fulfilling the request.
-- **Solution:** Try again later. If the problem persists, contact support.
+- **Problem:** The request was well-formed but contains invalid parameters
+- **Example response:**
+  ```json
+  {
+    "status": 422,
+    "body": {
+      "errors": ["Invalid parameter format"]
+    }
+  }
+  ```
 
-### `timeout`
+### `429 Too Many Requests`
 
-- **Status:** 504
-- **Problem:** The server did not respond in time.
-- **Solution:** Try again later. If the problem persists, contact support.
+- **Problem:** Rate limit exceeded
+- **Solution:** Reduce request frequency or wait before retrying
+- **Example response:**
+  ```json
+  {
+    "status": 429,
+    "body": {
+      "errors": ["Rate limit exceeded. Please try again later"]
+    }
+  }
+  ```
+
+### `500 Internal Server Error`
+
+- **Problem:** Server encountered an unexpected condition
+- **Solution:** Retry the request; if persists, contact support
+- **Example scenarios:**
+  - Failed to fetch operator stakers
+  - Failed to fetch withdrawals
+  - Database query errors
+- **Example response:**
+  ```json
+  {
+    "status": 500,
+    "body": {
+      "errors": ["Failed to fetch staker details: database error"]
+    }
+  }
+  ```
+
+## Validation Patterns
+
+### Address Format
+
+All Ethereum addresses must match the following pattern:
+
+- Pattern: `^0x[a-fA-F0-9]{40}$`
+- Example: `0x09e6eb09213bdd3698bd8afb43ec3cb0ecff683a`
+
+## Pagination Errors
+
+Many endpoints support pagination with `page` and `limit` parameters:
+
+- `page`: Default is 1
+- `limit`: Default is 12
+- Invalid pagination parameters will result in a 400 error
+
+## Best Practices
+
+1. Always check the `status` field in the response
+2. Handle error cases appropriately in your application
+3. Implement exponential backoff for 429 and 500 errors
+4. Validate addresses and parameters before sending requests
+5. Include proper error handling for both network and API errors

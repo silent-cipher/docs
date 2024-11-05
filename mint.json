@@ -38,7 +38,51 @@
   "navigation": [
     {
       "group": "API Documentation",
-      "pages": ["eigen-reference/introduction"]
+      "pages": [
+        "eigen-reference/introduction",
+        "eigen-reference/prerequisites",
+        "eigen-reference/errors"
+      ]
+    },
+    {
+      "group": "AVS",
+      "pages": [
+        "eigen-reference/avs/index",
+        "eigen-reference/avs/avs-all-address",
+        "eigen-reference/avs/avs-by-address",
+        "eigen-reference/avs/stakers-by-avs",
+        "eigen-reference/avs/operators-by-avs"
+      ]
+    },
+    {
+      "group": "Operator",
+      "pages": [
+        "eigen-reference/operators/index",
+        "eigen-reference/operators/operator-by-address",
+        "eigen-reference/operators/operator-all-address",
+        "eigen-reference/operators/operator-stakers",
+        "eigen-reference/operators/operator-staker-history",
+        "eigen-reference/operators/operator-avs-history"
+      ]
+    },
+    {
+      "group": "Stakers",
+      "pages": [
+        "eigen-reference/stakers/index",
+        "eigen-reference/stakers/staker-by-address",
+        "eigen-reference/stakers/staker-withdrawals-all",
+        "eigen-reference/stakers/staker-withdrawals-queued",
+        "eigen-reference/stakers/staker-withdrawal-completed",
+        "eigen-reference/stakers/deposits-by-staker"
+      ]
+    },
+    {
+      "group": "Deposits and withdrawals",
+      "pages": [
+        "eigen-reference/deposits/index",
+        "eigen-reference/withdrawals/index",
+        "eigen-reference/withdrawals/withdrawal-by-root"
+      ]
     },
     {
       "group": "API Documentation",

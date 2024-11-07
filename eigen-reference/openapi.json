@@ -24,9 +24,7 @@
         "operationId": "historyByOperator",
         "summary": "Retrieve Operator Activity History",
         "description": "Retrive if operator is registered, joined, or left AVS",
-        "tags": [
-          "Operators"
-        ],
+        "tags": ["Operators"],
         "requestBody": {
           "content": {
             "application/json": {
@@ -128,23 +126,13 @@
                               "example": 12
                             }
                           },
-                          "required": [
-                            "total",
-                            "page",
-                            "limit"
-                          ]
+                          "required": ["total", "page", "limit"]
                         }
                       },
-                      "required": [
-                        "data",
-                        "meta"
-                      ]
+                      "required": ["data", "meta"]
                     }
                   },
-                  "required": [
-                    "status",
-                    "body"
-                  ]
+                  "required": ["status", "body"]
                 }
               }
             }
@@ -178,9 +166,7 @@
         "operationId": "restakeHistoryByOperator",
         "summary": "Retrieve Restake History by Operator",
         "description": "Retrive restake history by operator",
-        "tags": [
-          "Operators"
-        ],
+        "tags": ["Operators"],
         "requestBody": {
           "content": {
             "application/json": {
@@ -300,19 +286,12 @@
                               "example": 12
                             }
                           },
-                          "required": [
-                            "total",
-                            "page",
-                            "limit"
-                          ]
+                          "required": ["total", "page", "limit"]
                         }
                       }
                     }
                   },
-                  "required": [
-                    "status",
-                    "body"
-                  ]
+                  "required": ["status", "body"]
                 }
               }
             }
@@ -346,9 +325,7 @@
         "operationId": "getAllMetrics",
         "summary": "Retrieve summary metrics",
         "description": "Returns summary metrics, including TVLs for both restaking strategies and the Beacon Chain ETH strategy, as well as the total number of AVS, operators, and stakers.",
-        "tags": [
-          "Metrics"
-        ],
+        "tags": ["Metrics"],
         "responses": {
           "200": {
             "description": "The list of summary metrics.",
@@ -413,9 +390,7 @@
                       }
                     }
                   },
-                  "required": [
-                    "data"
-                  ]
+                  "required": ["data"]
                 }
               }
             }
@@ -449,9 +424,7 @@
         "operationId": "getTvlMetrics",
         "summary": "Retrieve total TVL",
         "description": "Returns the total value locked (TVL) in all restaking strategies and Beacon Chain restaking.",
-        "tags": [
-          "Metrics"
-        ],
+        "tags": ["Metrics"],
         "responses": {
           "200": {
             "description": "The value of the combined TVL in ETH.",
@@ -490,17 +463,12 @@
                               }
                             }
                           },
-                          "required": [
-                            "tvlBeaconChain",
-                            "tvlStrategies"
-                          ]
+                          "required": ["tvlBeaconChain", "tvlStrategies"]
                         }
                       }
                     }
                   },
-                  "required": [
-                    "data"
-                  ]
+                  "required": ["data"]
                 }
               }
             }
@@ -534,9 +502,7 @@
         "operationId": "getTvlRestakingMetricByStrategy",
         "summary": "Retrieve a strategy TVL by name",
         "description": "Returns the total value locked (TVL) in a specific LST strategy.",
-        "tags": [
-          "Metrics"
-        ],
+        "tags": ["Metrics"],
         "requestBody": {
           "content": {
             "application/json": {
@@ -578,16 +544,12 @@
                               "example": 1000000
                             }
                           },
-                          "required": [
-                            "tvl"
-                          ]
+                          "required": ["tvl"]
                         }
                       }
                     }
                   },
-                  "required": [
-                    "data"
-                  ]
+                  "required": ["data"]
                 }
               }
             }
@@ -621,9 +583,7 @@
         "operationId": "getTotalAvsMetric",
         "summary": "Retrieve total number of AVS",
         "description": "Returns the total number of AVS registered.",
-        "tags": [
-          "Metrics"
-        ],
+        "tags": ["Metrics"],
         "responses": {
           "200": {
             "description": "The total number of AVS registered.",
@@ -649,16 +609,12 @@
                               "example": 1000000
                             }
                           },
-                          "required": [
-                            "total"
-                          ]
+                          "required": ["total"]
                         }
                       }
                     }
                   },
-                  "required": [
-                    "data"
-                  ]
+                  "required": ["data"]
                 }
               }
             }
@@ -692,9 +648,7 @@
         "operationId": "getTotalOperatorsMetric",
         "summary": "Retrieve total number of AVS operators",
         "description": "Returns the total number of AVS operators registered.",
-        "tags": [
-          "Metrics"
-        ],
+        "tags": ["Metrics"],
         "responses": {
           "200": {
             "description": "The total number of AVS operators registered.",
@@ -720,16 +674,12 @@
                               "example": 1000000
                             }
                           },
-                          "required": [
-                            "total"
-                          ]
+                          "required": ["total"]
                         }
                       }
                     }
                   },
-                  "required": [
-                    "data"
-                  ]
+                  "required": ["data"]
                 }
               }
             }
@@ -763,9 +713,7 @@
         "operationId": "getTotalStakerssMetric",
         "summary": "Retrieve total number of AVS stakers",
         "description": "Returns the total number of AVS stakers registered.",
-        "tags": [
-          "Metrics"
-        ],
+        "tags": ["Metrics"],
         "responses": {
           "200": {
             "description": "The total number of AVS stakers registered.",
@@ -791,16 +739,12 @@
                               "example": 1000000
                             }
                           },
-                          "required": [
-                            "total"
-                          ]
+                          "required": ["total"]
                         }
                       }
                     }
                   },
-                  "required": [
-                    "data"
-                  ]
+                  "required": ["data"]
                 }
               }
             }
@@ -834,9 +778,7 @@
         "operationId": "getTotalWithdrawals",
         "summary": "Retrieve total number of withdrawals ",
         "description": "Returns the total number of withdrawals.",
-        "tags": [
-          "Metrics"
-        ],
+        "tags": ["Metrics"],
         "responses": {
           "200": {
             "description": "The total number of withdrawals.",
@@ -872,18 +814,12 @@
                               "example": 1000000
                             }
                           },
-                          "required": [
-                            "total",
-                            "pending",
-                            "completed"
-                          ]
+                          "required": ["total", "pending", "completed"]
                         }
                       }
                     }
                   },
-                  "required": [
-                    "data"
-                  ]
+                  "required": ["data"]
                 }
               }
             }
@@ -917,9 +853,7 @@
         "operationId": "getTotalDeposits",
         "summary": "Retrieve total number of deposits",
         "description": "Returns the total number of deposits.",
-        "tags": [
-          "Metrics"
-        ],
+        "tags": ["Metrics"],
         "responses": {
           "200": {
             "description": "The total number of deposits.",
@@ -945,16 +879,12 @@
                               "example": 1000000
                             }
                           },
-                          "required": [
-                            "total"
-                          ]
+                          "required": ["total"]
                         }
                       }
                     }
                   },
-                  "required": [
-                    "data"
-                  ]
+                  "required": ["data"]
                 }
               }
             }
@@ -988,30 +918,24 @@
         "operationId": "getAllStakers",
         "summary": "Retrieve all stakers",
         "description": "Fetches a paginated list of all stakers with their operator assignments and share distributions across strategies.",
-        "tags": [
-          "Stakers"
-        ],
+        "tags": ["Stakers"],
         "parameters": [
           {
             "name": "page",
             "in": "query",
             "required": false,
+            "description": "The page number to retrieve",
             "schema": {
-              "type": "number",
-              "default": 1,
-              "description": "The page number to retrieve",
-              "example": 1
+              "type": "number"
             }
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
+            "description": "The number of records per page",
             "schema": {
-              "type": "number",
-              "default": 12,
-              "description": "The number of records per page",
-              "example": 12
+              "type": "number"
             }
           }
         ],
@@ -1087,10 +1011,7 @@
                                       "example": "135064894598947935263152"
                                     }
                                   },
-                                  "required": [
-                                    "strategyAddress",
-                                    "shares"
-                                  ]
+                                  "required": ["strategyAddress", "shares"]
                                 },
                                 "description": "Array of strategy shares held by the staker"
                               }
@@ -1125,23 +1046,13 @@
                               "example": 12
                             }
                           },
-                          "required": [
-                            "total",
-                            "page",
-                            "limit"
-                          ]
+                          "required": ["total", "page", "limit"]
                         }
                       },
-                      "required": [
-                        "data",
-                        "meta"
-                      ]
+                      "required": ["data", "meta"]
                     }
                   },
-                  "required": [
-                    "status",
-                    "body"
-                  ]
+                  "required": ["status", "body"]
                 }
               }
             }
@@ -1172,15 +1083,10 @@
                           ]
                         }
                       },
-                      "required": [
-                        "errors"
-                      ]
+                      "required": ["errors"]
                     }
                   },
-                  "required": [
-                    "status",
-                    "body"
-                  ]
+                  "required": ["status", "body"]
                 }
               }
             }
@@ -1205,20 +1111,13 @@
                             "type": "string"
                           },
                           "description": "Error message",
-                          "example": [
-                            "Failed to fetch stakers list"
-                          ]
+                          "example": ["Failed to fetch stakers list"]
                         }
                       },
-                      "required": [
-                        "errors"
-                      ]
+                      "required": ["errors"]
                     }
                   },
-                  "required": [
-                    "status",
-                    "body"
-                  ]
+                  "required": ["status", "body"]
                 }
               }
             }
@@ -1231,9 +1130,7 @@
         "operationId": "getStakerByAddress",
         "summary": "Retrieve staker details for a specific address",
         "description": "Fetches detailed information about a specific staker including their operator assignment and share distributions across strategies.",
-        "tags": [
-          "Stakers"
-        ],
+        "tags": ["Stakers"],
         "parameters": [
           {
             "name": "address",
@@ -1314,10 +1211,7 @@
                                 "example": "135064894598947935263152"
                               }
                             },
-                            "required": [
-                              "strategyAddress",
-                              "shares"
-                            ]
+                            "required": ["strategyAddress", "shares"]
                           },
                           "description": "Array of strategy shares held by the staker"
                         }
@@ -1333,10 +1227,7 @@
                       ]
                     }
                   },
-                  "required": [
-                    "status",
-                    "body"
-                  ]
+                  "required": ["status", "body"]
                 }
               }
             }
@@ -1361,20 +1252,13 @@
                             "type": "string"
                           },
                           "description": "List of validation errors",
-                          "example": [
-                            "Staker address is required"
-                          ]
+                          "example": ["Staker address is required"]
                         }
                       },
-                      "required": [
-                        "errors"
-                      ]
+                      "required": ["errors"]
                     }
                   },
-                  "required": [
-                    "status",
-                    "body"
-                  ]
+                  "required": ["status", "body"]
                 }
               }
             }
@@ -1399,20 +1283,13 @@
                             "type": "string"
                           },
                           "description": "Error message",
-                          "example": [
-                            "Staker not found"
-                          ]
+                          "example": ["Staker not found"]
                         }
                       },
-                      "required": [
-                        "errors"
-                      ]
+                      "required": ["errors"]
                     }
                   },
-                  "required": [
-                    "status",
-                    "body"
-                  ]
+                  "required": ["status", "body"]
                 }
               }
             }
@@ -1437,20 +1314,13 @@
                             "type": "string"
                           },
                           "description": "Error message",
-                          "example": [
-                            "Failed to fetch staker details"
-                          ]
+                          "example": ["Failed to fetch staker details"]
                         }
                       },
-                      "required": [
-                        "errors"
-                      ]
+                      "required": ["errors"]
                     }
                   },
-                  "required": [
-                    "status",
-                    "body"
-                  ]
+                  "required": ["status", "body"]
                 }
               }
             }
@@ -1463,10 +1333,7 @@
         "operationId": "getStakerWithdrawals",
         "summary": "Retrieve all withdrawals for a specific staker",
         "description": "Fetches a paginated list of withdrawal records for a specific staker, including completed and pending withdrawals.",
-        "tags": [
-          "Stakers",
-          "Withdrawals"
-        ],
+        "tags": ["Stakers", "Withdrawals"],
         "parameters": [
           {
             "name": "address",
@@ -1569,10 +1436,7 @@
                                       "example": "135064894598947935263152"
                                     }
                                   },
-                                  "required": [
-                                    "strategy",
-                                    "shares"
-                                  ]
+                                  "required": ["strategy", "shares"]
                                 },
                                 "description": "Array of strategy shares being withdrawn"
                               },
@@ -1638,23 +1502,13 @@
                               "example": 12
                             }
                           },
-                          "required": [
-                            "total",
-                            "skip",
-                            "limit"
-                          ]
+                          "required": ["total", "skip", "limit"]
                         }
                       },
-                      "required": [
-                        "data",
-                        "meta"
-                      ]
+                      "required": ["data", "meta"]
                     }
                   },
-                  "required": [
-                    "status",
-                    "body"
-                  ]
+                  "required": ["status", "body"]
                 }
               }
             }
@@ -1679,20 +1533,13 @@
                             "type": "string"
                           },
                           "description": "List of validation errors",
-                          "example": [
-                            "Staker address is required"
-                          ]
+                          "example": ["Staker address is required"]
                         }
                       },
-                      "required": [
-                        "errors"
-                      ]
+                      "required": ["errors"]
                     }
                   },
-                  "required": [
-                    "status",
-                    "body"
-                  ]
+                  "required": ["status", "body"]
                 }
               }
             }
@@ -1717,20 +1564,13 @@
                             "type": "string"
                           },
                           "description": "Error message",
-                          "example": [
-                            "Failed to fetch staker withdrawals"
-                          ]
+                          "example": ["Failed to fetch staker withdrawals"]
                         }
                       },
-                      "required": [
-                        "errors"
-                      ]
+                      "required": ["errors"]
                     }
                   },
-                  "required": [
-                    "status",
-                    "body"
-                  ]
+                  "required": ["status", "body"]
                 }
               }
             }
@@ -1743,10 +1583,7 @@
         "operationId": "getStakerCompletedWithdrawals",
         "summary": "Retrieve completed withdrawals for a specific staker",
         "description": "Fetches a paginated list of completed withdrawal records for a specific staker.",
-        "tags": [
-          "Stakers",
-          "Withdrawals"
-        ],
+        "tags": ["Stakers", "Withdrawals"],
         "parameters": [
           {
             "name": "address",
@@ -1849,10 +1686,7 @@
                                       "example": "135064894598947935263152"
                                     }
                                   },
-                                  "required": [
-                                    "strategy",
-                                    "shares"
-                                  ]
+                                  "required": ["strategy", "shares"]
                                 },
                                 "description": "Array of strategy shares that were withdrawn"
                               },
@@ -1912,23 +1746,13 @@
                               "example": 12
                             }
                           },
-                          "required": [
-                            "total",
-                            "skip",
-                            "limit"
-                          ]
+                          "required": ["total", "skip", "limit"]
                         }
                       },
-                      "required": [
-                        "data",
-                        "meta"
-                      ]
+                      "required": ["data", "meta"]
                     }
                   },
-                  "required": [
-                    "status",
-                    "body"
-                  ]
+                  "required": ["status", "body"]
                 }
               }
             }
@@ -1953,20 +1777,13 @@
                             "type": "string"
                           },
                           "description": "List of validation errors",
-                          "example": [
-                            "Staker address is required"
-                          ]
+                          "example": ["Staker address is required"]
                         }
                       },
-                      "required": [
-                        "errors"
-                      ]
+                      "required": ["errors"]
                     }
                   },
-                  "required": [
-                    "status",
-                    "body"
-                  ]
+                  "required": ["status", "body"]
                 }
               }
             }
@@ -1996,15 +1813,10 @@
                           ]
                         }
                       },
-                      "required": [
-                        "errors"
-                      ]
+                      "required": ["errors"]
                     }
                   },
-                  "required": [
-                    "status",
-                    "body"
-                  ]
+                  "required": ["status", "body"]
                 }
               }
             }
@@ -2017,10 +1829,7 @@
         "operationId": "getStakerDeposits",
         "summary": "Retrieve deposits for a specific staker",
         "description": "Fetches a paginated list of deposit records for a specific staker.",
-        "tags": [
-          "Stakers",
-          "Deposits"
-        ],
+        "tags": ["Stakers", "Deposits"],
         "parameters": [
           {
             "name": "address",
@@ -2148,23 +1957,13 @@
                               "example": 12
                             }
                           },
-                          "required": [
-                            "total",
-                            "skip",
-                            "limit"
-                          ]
+                          "required": ["total", "skip", "limit"]
                         }
                       },
-                      "required": [
-                        "data",
-                        "meta"
-                      ]
+                      "required": ["data", "meta"]
                     }
                   },
-                  "required": [
-                    "status",
-                    "body"
-                  ]
+                  "required": ["status", "body"]
                 }
               }
             }
@@ -2189,20 +1988,13 @@
                             "type": "string"
                           },
                           "description": "List of validation errors",
-                          "example": [
-                            "Staker address is required"
-                          ]
+                          "example": ["Staker address is required"]
                         }
                       },
-                      "required": [
-                        "errors"
-                      ]
+                      "required": ["errors"]
                     }
                   },
-                  "required": [
-                    "status",
-                    "body"
-                  ]
+                  "required": ["status", "body"]
                 }
               }
             }
@@ -2227,20 +2019,13 @@
                             "type": "string"
                           },
                           "description": "Error message",
-                          "example": [
-                            "Failed to fetch staker deposits"
-                          ]
+                          "example": ["Failed to fetch staker deposits"]
                         }
                       },
-                      "required": [
-                        "errors"
-                      ]
+                      "required": ["errors"]
                     }
                   },
-                  "required": [
-                    "status",
-                    "body"
-                  ]
+                  "required": ["status", "body"]
                 }
               }
             }
@@ -2253,10 +2038,7 @@
         "operationId": "getStakerQueuedWithdrawals",
         "summary": "Retrieve queued withdrawals for a specific staker",
         "description": "Fetches a paginated list of pending (non-completed) withdrawal records for a specific staker.",
-        "tags": [
-          "Stakers",
-          "Withdrawals"
-        ],
+        "tags": ["Stakers", "Withdrawals"],
         "parameters": [
           {
             "name": "address",
@@ -2359,10 +2141,7 @@
                                       "example": "135064894598947935263152"
                                     }
                                   },
-                                  "required": [
-                                    "strategy",
-                                    "shares"
-                                  ]
+                                  "required": ["strategy", "shares"]
                                 },
                                 "description": "Array of strategy shares being withdrawn"
                               },
@@ -2409,23 +2188,13 @@
                               "example": 12
                             }
                           },
-                          "required": [
-                            "total",
-                            "skip",
-                            "limit"
-                          ]
+                          "required": ["total", "skip", "limit"]
                         }
                       },
-                      "required": [
-                        "data",
-                        "meta"
-                      ]
+                      "required": ["data", "meta"]
                     }
                   },
-                  "required": [
-                    "status",
-                    "body"
-                  ]
+                  "required": ["status", "body"]
                 }
               }
             }
@@ -2450,20 +2219,13 @@
                             "type": "string"
                           },
                           "description": "List of validation errors",
-                          "example": [
-                            "Staker address is required"
-                          ]
+                          "example": ["Staker address is required"]
                         }
                       },
-                      "required": [
-                        "errors"
-                      ]
+                      "required": ["errors"]
                     }
                   },
-                  "required": [
-                    "status",
-                    "body"
-                  ]
+                  "required": ["status", "body"]
                 }
               }
             }
@@ -2493,15 +2255,10 @@
                           ]
                         }
                       },
-                      "required": [
-                        "errors"
-                      ]
+                      "required": ["errors"]
                     }
                   },
-                  "required": [
-                    "status",
-                    "body"
-                  ]
+                  "required": ["status", "body"]
                 }
               }
             }
@@ -2514,9 +2271,7 @@
         "operationId": "getAllAvs",
         "summary": "Retrieve all AVS",
         "description": "Returns all AVS records. This endpoint supports pagination.",
-        "tags": [
-          "AVS"
-        ],
+        "tags": ["AVS"],
         "parameters": [
           {
             "name": "sortByTotalOperators",
@@ -2525,10 +2280,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": [
-                "asc",
-                "desc"
-              ],
+              "enum": ["asc", "desc"],
               "example": "desc"
             }
           },
@@ -2690,10 +2442,7 @@
                                           "example": "1277920000000000000000000"
                                         }
                                       },
-                                      "required": [
-                                        "strategyAddress",
-                                        "shares"
-                                      ]
+                                      "required": ["strategyAddress", "shares"]
                                     },
                                     "description": "The strategy shares held in the AVS"
                                   }
@@ -2738,20 +2487,14 @@
                                   "example": 12
                                 }
                               },
-                              "required": [
-                                "total",
-                                "page",
-                                "limit"
-                              ]
+                              "required": ["total", "page", "limit"]
                             }
                           }
                         }
                       }
                     }
                   },
-                  "required": [
-                    "data"
-                  ]
+                  "required": ["data"]
                 }
               }
             }
@@ -2785,9 +2528,7 @@
         "operationId": "getAllAvsAddresses",
         "summary": "Retrieve all AVS addresses",
         "description": "Returns a list of all AVS addresses. This endpoint supports pagination.",
-        "tags": [
-          "AVS"
-        ],
+        "tags": ["AVS"],
         "parameters": [
           {
             "name": "page",
@@ -2858,12 +2599,7 @@
                                     "example": "https://example.com/metadata.json"
                                   }
                                 },
-                                "required": [
-                                  "address",
-                                  "name",
-                                  "logo",
-                                  "uri"
-                                ]
+                                "required": ["address", "name", "logo", "uri"]
                               }
                             },
                             "meta": {
@@ -2885,24 +2621,15 @@
                                   "example": 12
                                 }
                               },
-                              "required": [
-                                "total",
-                                "page",
-                                "limit"
-                              ]
+                              "required": ["total", "page", "limit"]
                             }
                           },
-                          "required": [
-                            "data",
-                            "meta"
-                          ]
+                          "required": ["data", "meta"]
                         }
                       }
                     }
                   },
-                  "required": [
-                    "data"
-                  ]
+                  "required": ["data"]
                 }
               }
             }
@@ -2936,9 +2663,7 @@
         "operationId": "getAvsByAddress",
         "summary": "Retrieve an AVS details for a specific address",
         "description": "Returns a single AVS record by address.",
-        "tags": [
-          "AVS"
-        ],
+        "tags": ["AVS"],
         "parameters": [
           {
             "name": "address",
@@ -3130,9 +2855,7 @@
                       }
                     }
                   },
-                  "required": [
-                    "data"
-                  ]
+                  "required": ["data"]
                 }
               }
             }
@@ -3166,9 +2889,7 @@
         "operationId": "getAvsStakersByAddress",
         "summary": "Retrieve all stakers for a given AVS address",
         "description": "Returns all stakers for a given AVS address. This endpoint supports pagination.",
-        "tags": [
-          "AVS"
-        ],
+        "tags": ["AVS"],
         "parameters": [
           {
             "name": "address",
@@ -3275,10 +2996,7 @@
                                           "example": "230909115959999994061"
                                         }
                                       },
-                                      "required": [
-                                        "strategy",
-                                        "shares"
-                                      ]
+                                      "required": ["strategy", "shares"]
                                     }
                                   }
                                 },
@@ -3312,24 +3030,15 @@
                                   "example": 12
                                 }
                               },
-                              "required": [
-                                "total",
-                                "page",
-                                "limit"
-                              ]
+                              "required": ["total", "page", "limit"]
                             }
                           },
-                          "required": [
-                            "data",
-                            "meta"
-                          ]
+                          "required": ["data", "meta"]
                         }
                       }
                     }
                   },
-                  "required": [
-                    "data"
-                  ]
+                  "required": ["data"]
                 }
               }
             }
@@ -3363,9 +3072,7 @@
         "operationId": "getAvsOperatorsByAddress",
         "summary": "Retrieve all operators for a given AVS address",
         "description": "Returns all operators for a given AVS address. This endpoint supports pagination.",
-        "tags": [
-          "AVS"
-        ],
+        "tags": ["AVS"],
         "parameters": [
           {
             "name": "address",
@@ -3522,10 +3229,7 @@
                                           "example": "40074843548537495320"
                                         }
                                       },
-                                      "required": [
-                                        "strategy",
-                                        "shares"
-                                      ]
+                                      "required": ["strategy", "shares"]
                                     }
                                   },
                                   "restakedStrategies": {
@@ -3585,24 +3289,15 @@
                                   "example": 12
                                 }
                               },
-                              "required": [
-                                "total",
-                                "page",
-                                "limit"
-                              ]
+                              "required": ["total", "page", "limit"]
                             }
                           },
-                          "required": [
-                            "data",
-                            "meta"
-                          ]
+                          "required": ["data", "meta"]
                         }
                       }
                     }
                   },
-                  "required": [
-                    "data"
-                  ]
+                  "required": ["data"]
                 }
               }
             }
@@ -3636,9 +3331,7 @@
         "operationId": "getAllDeposits",
         "summary": "Retrieve all deposits",
         "description": "Fetches a paginated list of all deposit records across all stakers, ordered by creation time in descending order.",
-        "tags": [
-          "Deposits"
-        ],
+        "tags": ["Deposits"],
         "parameters": [
           {
             "name": "page",
@@ -3755,23 +3448,13 @@
                               "example": 12
                             }
                           },
-                          "required": [
-                            "total",
-                            "skip",
-                            "limit"
-                          ]
+                          "required": ["total", "skip", "limit"]
                         }
                       },
-                      "required": [
-                        "data",
-                        "meta"
-                      ]
+                      "required": ["data", "meta"]
                     }
                   },
-                  "required": [
-                    "status",
-                    "body"
-                  ]
+                  "required": ["status", "body"]
                 }
               }
             }
@@ -3802,15 +3485,10 @@
                           ]
                         }
                       },
-                      "required": [
-                        "errors"
-                      ]
+                      "required": ["errors"]
                     }
                   },
-                  "required": [
-                    "status",
-                    "body"
-                  ]
+                  "required": ["status", "body"]
                 }
               }
             }
@@ -3835,20 +3513,13 @@
                             "type": "string"
                           },
                           "description": "Error message",
-                          "example": [
-                            "Failed to fetch deposits"
-                          ]
+                          "example": ["Failed to fetch deposits"]
                         }
                       },
-                      "required": [
-                        "errors"
-                      ]
+                      "required": ["errors"]
                     }
                   },
-                  "required": [
-                    "status",
-                    "body"
-                  ]
+                  "required": ["status", "body"]
                 }
               }
             }
@@ -3861,9 +3532,7 @@
         "operationId": "getAllWithdrawals",
         "summary": "Retrieve all withdrawals",
         "description": "Fetches a paginated list of all withdrawal records across all stakers, including both completed and pending withdrawals, ordered by creation time in descending order.",
-        "tags": [
-          "Withdrawals"
-        ],
+        "tags": ["Withdrawals"],
         "parameters": [
           {
             "name": "page",
@@ -3955,10 +3624,7 @@
                                       "example": "135064894598947935263152"
                                     }
                                   },
-                                  "required": [
-                                    "strategy",
-                                    "shares"
-                                  ]
+                                  "required": ["strategy", "shares"]
                                 },
                                 "description": "Array of strategy shares being withdrawn"
                               },
@@ -4022,23 +3688,13 @@
                               "example": 12
                             }
                           },
-                          "required": [
-                            "total",
-                            "skip",
-                            "limit"
-                          ]
+                          "required": ["total", "skip", "limit"]
                         }
                       },
-                      "required": [
-                        "data",
-                        "meta"
-                      ]
+                      "required": ["data", "meta"]
                     }
                   },
-                  "required": [
-                    "status",
-                    "body"
-                  ]
+                  "required": ["status", "body"]
                 }
               }
             }
@@ -4069,15 +3725,10 @@
                           ]
                         }
                       },
-                      "required": [
-                        "errors"
-                      ]
+                      "required": ["errors"]
                     }
                   },
-                  "required": [
-                    "status",
-                    "body"
-                  ]
+                  "required": ["status", "body"]
                 }
               }
             }
@@ -4102,20 +3753,13 @@
                             "type": "string"
                           },
                           "description": "Error message",
-                          "example": [
-                            "Failed to fetch withdrawals"
-                          ]
+                          "example": ["Failed to fetch withdrawals"]
                         }
                       },
-                      "required": [
-                        "errors"
-                      ]
+                      "required": ["errors"]
                     }
                   },
-                  "required": [
-                    "status",
-                    "body"
-                  ]
+                  "required": ["status", "body"]
                 }
               }
             }
@@ -4128,9 +3772,7 @@
         "operationId": "getWithdrawalByRoot",
         "summary": "Retrieve withdrawal details by withdrawal root",
         "description": "Fetches detailed information about a specific withdrawal using its withdrawal root identifier.",
-        "tags": [
-          "Withdrawals"
-        ],
+        "tags": ["Withdrawals"],
         "parameters": [
           {
             "name": "root",
@@ -4206,10 +3848,7 @@
                                 "example": "135064894598947935263152"
                               }
                             },
-                            "required": [
-                              "strategy",
-                              "shares"
-                            ]
+                            "required": ["strategy", "shares"]
                           },
                           "description": "Array of strategy shares being withdrawn"
                         },
@@ -4256,10 +3895,7 @@
                       ]
                     }
                   },
-                  "required": [
-                    "status",
-                    "body"
-                  ]
+                  "required": ["status", "body"]
                 }
               }
             }
@@ -4284,20 +3920,13 @@
                             "type": "string"
                           },
                           "description": "List of validation errors",
-                          "example": [
-                            "Withdrawal root is required"
-                          ]
+                          "example": ["Withdrawal root is required"]
                         }
                       },
-                      "required": [
-                        "errors"
-                      ]
+                      "required": ["errors"]
                     }
                   },
-                  "required": [
-                    "status",
-                    "body"
-                  ]
+                  "required": ["status", "body"]
                 }
               }
             }
@@ -4322,20 +3951,13 @@
                             "type": "string"
                           },
                           "description": "Error message",
-                          "example": [
-                            "Withdrawal not found"
-                          ]
+                          "example": ["Withdrawal not found"]
                         }
                       },
-                      "required": [
-                        "errors"
-                      ]
+                      "required": ["errors"]
                     }
                   },
-                  "required": [
-                    "status",
-                    "body"
-                  ]
+                  "required": ["status", "body"]
                 }
               }
             }
@@ -4360,20 +3982,13 @@
                             "type": "string"
                           },
                           "description": "Error message",
-                          "example": [
-                            "Failed to fetch withdrawal"
-                          ]
+                          "example": ["Failed to fetch withdrawal"]
                         }
                       },
-                      "required": [
-                        "errors"
-                      ]
+                      "required": ["errors"]
                     }
                   },
-                  "required": [
-                    "status",
-                    "body"
-                  ]
+                  "required": ["status", "body"]
                 }
               }
             }
@@ -4386,9 +4001,7 @@
         "operationId": "getAllOperators",
         "summary": "Retrieve all operators",
         "description": "Fetches all operator records with pagination support. Use query parameters to specify page number and limit.",
-        "tags": [
-          "Operators"
-        ],
+        "tags": ["Operators"],
         "parameters": [
           {
             "name": "page",
@@ -4546,10 +4159,7 @@
                                           "example": "1277920000000000000000000"
                                         }
                                       },
-                                      "required": [
-                                        "strategyAddress",
-                                        "shares"
-                                      ]
+                                      "required": ["strategyAddress", "shares"]
                                     },
                                     "description": "The strategy shares held in the AVS operator",
                                     "example": [
@@ -4580,10 +4190,7 @@
                                           "example": false
                                         }
                                       },
-                                      "required": [
-                                        "avsAddress",
-                                        "isActive"
-                                      ]
+                                      "required": ["avsAddress", "isActive"]
                                     },
                                     "description": "Operator AVS registrations and their participation status",
                                     "example": [
@@ -4681,22 +4288,13 @@
                                   "example": 12
                                 }
                               },
-                              "required": [
-                                "total",
-                                "page",
-                                "limit"
-                              ]
+                              "required": ["total", "page", "limit"]
                             }
                           },
-                          "required": [
-                            "data",
-                            "meta"
-                          ]
+                          "required": ["data", "meta"]
                         }
                       },
-                      "required": [
-                        "data"
-                      ]
+                      "required": ["data"]
                     }
                   }
                 }
@@ -4732,9 +4330,7 @@
         "operationId": "getOperatorByAddress",
         "summary": "Retrieve operator details for a specific address",
         "description": "Returns an operator record by address.",
-        "tags": [
-          "Operators"
-        ],
+        "tags": ["Operators"],
         "parameters": [
           {
             "name": "address",
@@ -4897,10 +4493,7 @@
                                     "example": "1277920000000000000000000"
                                   }
                                 },
-                                "required": [
-                                  "strategyAddress",
-                                  "shares"
-                                ]
+                                "required": ["strategyAddress", "shares"]
                               },
                               "description": "The strategy shares held in the AVS operator",
                               "example": [
@@ -4931,10 +4524,7 @@
                                     "example": false
                                   }
                                 },
-                                "required": [
-                                  "avsAddress",
-                                  "isActive"
-                                ]
+                                "required": ["avsAddress", "isActive"]
                               },
                               "description": "Operator AVS registrations and their participation status",
                               "example": [
@@ -4973,9 +4563,7 @@
                       }
                     }
                   },
-                  "required": [
-                    "data"
-                  ]
+                  "required": ["data"]
                 }
               }
             }
@@ -5009,9 +4597,7 @@
         "operationId": "getOperatorAddresses",
         "summary": "Retrieve all operator addresses with basic metadata",
         "description": "Fetches a paginated list of operator addresses along with their names and logos.",
-        "tags": [
-          "Operators"
-        ],
+        "tags": ["Operators"],
         "parameters": [
           {
             "name": "page",
@@ -5076,10 +4662,7 @@
                                 "example": "https://example.com/logo.png"
                               }
                             },
-                            "required": [
-                              "address",
-                              "name"
-                            ]
+                            "required": ["address", "name"]
                           }
                         },
                         "meta": {
@@ -5101,23 +4684,13 @@
                               "example": 12
                             }
                           },
-                          "required": [
-                            "total",
-                            "page",
-                            "limit"
-                          ]
+                          "required": ["total", "page", "limit"]
                         }
                       },
-                      "required": [
-                        "data",
-                        "meta"
-                      ]
+                      "required": ["data", "meta"]
                     }
                   },
-                  "required": [
-                    "status",
-                    "body"
-                  ]
+                  "required": ["status", "body"]
                 }
               }
             }
@@ -5148,15 +4721,10 @@
                           ]
                         }
                       },
-                      "required": [
-                        "errors"
-                      ]
+                      "required": ["errors"]
                     }
                   },
-                  "required": [
-                    "status",
-                    "body"
-                  ]
+                  "required": ["status", "body"]
                 }
               }
             }
@@ -5181,20 +4749,13 @@
                             "type": "string"
                           },
                           "description": "Error message",
-                          "example": [
-                            "Failed to fetch operator addresses"
-                          ]
+                          "example": ["Failed to fetch operator addresses"]
                         }
                       },
-                      "required": [
-                        "errors"
-                      ]
+                      "required": ["errors"]
                     }
                   },
-                  "required": [
-                    "status",
-                    "body"
-                  ]
+                  "required": ["status", "body"]
                 }
               }
             }
@@ -5207,9 +4768,7 @@
         "operationId": "getOperatorStakers",
         "summary": "Retrieve all stakers for a specific operator",
         "description": "Fetches a paginated list of stakers who have delegated to a specific operator, including their shares across different strategies.",
-        "tags": [
-          "Operators"
-        ],
+        "tags": ["Operators"],
         "parameters": [
           {
             "name": "address",
@@ -5355,23 +4914,13 @@
                               "example": 12
                             }
                           },
-                          "required": [
-                            "total",
-                            "skip",
-                            "limit"
-                          ]
+                          "required": ["total", "skip", "limit"]
                         }
                       },
-                      "required": [
-                        "data",
-                        "meta"
-                      ]
+                      "required": ["data", "meta"]
                     }
                   },
-                  "required": [
-                    "status",
-                    "body"
-                  ]
+                  "required": ["status", "body"]
                 }
               }
             }
@@ -5396,20 +4945,13 @@
                             "type": "string"
                           },
                           "description": "List of validation errors",
-                          "example": [
-                            "Operator address is required"
-                          ]
+                          "example": ["Operator address is required"]
                         }
                       },
-                      "required": [
-                        "errors"
-                      ]
+                      "required": ["errors"]
                     }
                   },
-                  "required": [
-                    "status",
-                    "body"
-                  ]
+                  "required": ["status", "body"]
                 }
               }
             }
@@ -5434,20 +4976,13 @@
                             "type": "string"
                           },
                           "description": "Error message",
-                          "example": [
-                            "Failed to fetch operator stakers"
-                          ]
+                          "example": ["Failed to fetch operator stakers"]
                         }
                       },
-                      "required": [
-                        "errors"
-                      ]
+                      "required": ["errors"]
                     }
                   },
-                  "required": [
-                    "status",
-                    "body"
-                  ]
+                  "required": ["status", "body"]
                 }
               }
             }
@@ -5460,9 +4995,7 @@
         "operationId": "getOperatorStakerHistory",
         "summary": "Retrieve staking history for a specific operator",
         "description": "Fetches a paginated list of historical staking actions (restaking events) associated with a specific operator.",
-        "tags": [
-          "Operators"
-        ],
+        "tags": ["Operators"],
         "parameters": [
           {
             "name": "address",
@@ -5559,10 +5092,7 @@
                                       "example": "135064894598947935263152"
                                     }
                                   },
-                                  "required": [
-                                    "strategy",
-                                    "shares"
-                                  ]
+                                  "required": ["strategy", "shares"]
                                 },
                                 "description": "Array of strategy shares involved in the action"
                               },
@@ -5619,23 +5149,13 @@
                               "example": 12
                             }
                           },
-                          "required": [
-                            "total",
-                            "page",
-                            "limit"
-                          ]
+                          "required": ["total", "page", "limit"]
                         }
                       },
-                      "required": [
-                        "data",
-                        "meta"
-                      ]
+                      "required": ["data", "meta"]
                     }
                   },
-                  "required": [
-                    "status",
-                    "body"
-                  ]
+                  "required": ["status", "body"]
                 }
               }
             }
@@ -5660,20 +5180,13 @@
                             "type": "string"
                           },
                           "description": "List of validation errors",
-                          "example": [
-                            "Operator address is required"
-                          ]
+                          "example": ["Operator address is required"]
                         }
                       },
-                      "required": [
-                        "errors"
-                      ]
+                      "required": ["errors"]
                     }
                   },
-                  "required": [
-                    "status",
-                    "body"
-                  ]
+                  "required": ["status", "body"]
                 }
               }
             }
@@ -5698,20 +5211,13 @@
                             "type": "string"
                           },
                           "description": "Error message",
-                          "example": [
-                            "Failed to fetch operator staker history"
-                          ]
+                          "example": ["Failed to fetch operator staker history"]
                         }
                       },
-                      "required": [
-                        "errors"
-                      ]
+                      "required": ["errors"]
                     }
                   },
-                  "required": [
-                    "status",
-                    "body"
-                  ]
+                  "required": ["status", "body"]
                 }
               }
             }
@@ -5724,9 +5230,7 @@
         "operationId": "getOperatorAvsHistory",
         "summary": "Retrieve AVS history for a specific operator",
         "description": "Fetches a paginated list of historical AVS-related events for a specific operator, ordered by block number in descending order.",
-        "tags": [
-          "Operators"
-        ],
+        "tags": ["Operators"],
         "parameters": [
           {
             "name": "address",
@@ -5847,23 +5351,13 @@
                               "example": 12
                             }
                           },
-                          "required": [
-                            "total",
-                            "page",
-                            "limit"
-                          ]
+                          "required": ["total", "page", "limit"]
                         }
                       },
-                      "required": [
-                        "data",
-                        "meta"
-                      ]
+                      "required": ["data", "meta"]
                     }
                   },
-                  "required": [
-                    "status",
-                    "body"
-                  ]
+                  "required": ["status", "body"]
                 }
               }
             }
@@ -5888,20 +5382,13 @@
                             "type": "string"
                           },
                           "description": "List of validation errors",
-                          "example": [
-                            "Operator address is required"
-                          ]
+                          "example": ["Operator address is required"]
                         }
                       },
-                      "required": [
-                        "errors"
-                      ]
+                      "required": ["errors"]
                     }
                   },
-                  "required": [
-                    "status",
-                    "body"
-                  ]
+                  "required": ["status", "body"]
                 }
               }
             }
@@ -5926,20 +5413,13 @@
                             "type": "string"
                           },
                           "description": "Error message",
-                          "example": [
-                            "Failed to fetch operator history"
-                          ]
+                          "example": ["Failed to fetch operator history"]
                         }
                       },
-                      "required": [
-                        "errors"
-                      ]
+                      "required": ["errors"]
                     }
                   },
-                  "required": [
-                    "status",
-                    "body"
-                  ]
+                  "required": ["status", "body"]
                 }
               }
             }
@@ -5962,9 +5442,7 @@
                   "properties": {
                     "code": {
                       "type": "string",
-                      "enum": [
-                        "bad_request"
-                      ],
+                      "enum": ["bad_request"],
                       "description": "A short code indicating the error code returned.",
                       "example": "bad_request"
                     },
@@ -5979,15 +5457,10 @@
                       "example": "https://docs.rescan.dev.com/api-reference/errors#bad_request"
                     }
                   },
-                  "required": [
-                    "code",
-                    "message"
-                  ]
+                  "required": ["code", "message"]
                 }
               },
-              "required": [
-                "error"
-              ]
+              "required": ["error"]
             }
           }
         }
@@ -6004,9 +5477,7 @@
                   "properties": {
                     "code": {
                       "type": "string",
-                      "enum": [
-                        "unauthorized"
-                      ],
+                      "enum": ["unauthorized"],
                       "description": "A short code indicating the error code returned.",
                       "example": "unauthorized"
                     },
@@ -6021,15 +5492,10 @@
                       "example": "https://docs.rescan.dev.com/api-reference/errors#unauthorized"
                     }
                   },
-                  "required": [
-                    "code",
-                    "message"
-                  ]
+                  "required": ["code", "message"]
                 }
               },
-              "required": [
-                "error"
-              ]
+              "required": ["error"]
             }
           }
         }
@@ -6046,9 +5512,7 @@
                   "properties": {
                     "code": {
                       "type": "string",
-                      "enum": [
-                        "forbidden"
-                      ],
+                      "enum": ["forbidden"],
                       "description": "A short code indicating the error code returned.",
                       "example": "forbidden"
                     },
@@ -6063,15 +5527,10 @@
                       "example": "https://docs.rescan.dev.com/api-reference/errors#forbidden"
                     }
                   },
-                  "required": [
-                    "code",
-                    "message"
-                  ]
+                  "required": ["code", "message"]
                 }
               },
-              "required": [
-                "error"
-              ]
+              "required": ["error"]
             }
           }
         }
@@ -6088,9 +5547,7 @@
                   "properties": {
                     "code": {
                       "type": "string",
-                      "enum": [
-                        "not_found"
-                      ],
+                      "enum": ["not_found"],
                       "description": "A short code indicating the error code returned.",
                       "example": "not_found"
                     },
@@ -6105,15 +5562,10 @@
                       "example": "https://docs.rescan.dev.com/api-reference/errors#not_found"
                     }
                   },
-                  "required": [
-                    "code",
-                    "message"
-                  ]
+                  "required": ["code", "message"]
                 }
               },
-              "required": [
-                "error"
-              ]
+              "required": ["error"]
             }
           }
         }
@@ -6130,9 +5582,7 @@
                   "properties": {
                     "code": {
                       "type": "string",
-                      "enum": [
-                        "unprocessable_entity"
-                      ],
+                      "enum": ["unprocessable_entity"],
                       "description": "A short code indicating the error code returned.",
                       "example": "unprocessable_entity"
                     },
@@ -6147,15 +5597,10 @@
                       "example": "https://docs.rescan.dev.com/api-reference/errors#unprocessable_entity"
                     }
                   },
-                  "required": [
-                    "code",
-                    "message"
-                  ]
+                  "required": ["code", "message"]
                 }
               },
-              "required": [
-                "error"
-              ]
+              "required": ["error"]
             }
           }
         }
@@ -6172,9 +5617,7 @@
                   "properties": {
                     "code": {
                       "type": "string",
-                      "enum": [
-                        "rate_limit_exceeded"
-                      ],
+                      "enum": ["rate_limit_exceeded"],
                       "description": "A short code indicating the error code returned.",
                       "example": "rate_limit_exceeded"
                     },
@@ -6189,15 +5632,10 @@
                       "example": "https://docs.rescan.dev.com/api-reference/errors#rate_limit_exceeded"
                     }
                   },
-                  "required": [
-                    "code",
-                    "message"
-                  ]
+                  "required": ["code", "message"]
                 }
               },
-              "required": [
-                "error"
-              ]
+              "required": ["error"]
             }
           }
         }
@@ -6214,9 +5652,7 @@
                   "properties": {
                     "code": {
                       "type": "string",
-                      "enum": [
-                        "internal_server_error"
-                      ],
+                      "enum": ["internal_server_error"],
                       "description": "A short code indicating the error code returned.",
                       "example": "internal_server_error"
                     },
@@ -6231,15 +5667,10 @@
                       "example": "https://docs.rescan.dev.com/api-reference/errors#internal_server_error"
                     }
                   },
-                  "required": [
-                    "code",
-                    "message"
-                  ]
+                  "required": ["code", "message"]
                 }
               },
-              "required": [
-                "error"
-              ]
+              "required": ["error"]
             }
           }
         }
